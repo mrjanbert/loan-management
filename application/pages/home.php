@@ -14,11 +14,8 @@ if (!isset($_SESSION['user_id'])) {
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Home - NMSC Loan Management</title>
 	<link rel="icon" type="image/x-icon" href="https://www.nmsc.edu.ph/application/themes/nmsc/favicon.ico">
-
-	<?php require_once('../includes/links-header.php'); ?>
-	
+	<?php require_once('../includes/links-header.php'); ?>	
 </head>
-
 
 <body class="hold-transition sidebar-mini layout-fixed" id="switch-mode">
 	<div class="wrapper">

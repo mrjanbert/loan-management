@@ -44,6 +44,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <button class="btn btn-primary offset-md-3" type="submit" name="addcharges_btn" value="submit"> Save</button>
+                  <input type="button" class="btn btn-secondary" value="Cancel" onclick="history.go(0)"/>
                 </div>
               </div>
             </div>

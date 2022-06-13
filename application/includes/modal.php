@@ -1,8 +1,19 @@
 <?php
-  if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
-	header('location: http://localhost/loan-management/error-pages/403-error.php');
-  exit();
-  };
+if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
+    header('location: http://localhost/loan-management/error-pages/403-error.php');
+    exit();
+};
+?>
+
+
+<?php
+// include_once('db_connect.php');
+// if (isset($_GET['user_id'])) {
+//     $query = $conn->query("SELECT * FROM tbl_users where user_id = " . $_GET['user_id']);
+//     foreach ($query->fetch_array() as $k => $v) {
+//         $$k = $v;
+//     }
+// }
 ?>
 <div class="modal fade" id="addloan">
     <div class="modal-dialog modal-md">
@@ -19,42 +30,43 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label>Borrower</label>
-                                <select class="custom-select form-control-border border-width-2" id="exampleSelectBorderWidth2">
-                                    <?php
-                                    $query = mysqli_query($conn, "SELECT * FROM tbl_users WHERE user_id != '" . $_SESSION['accountNumber'] . "'");
-                                    while ($row = mysqli_fetch_array($query)) {
-                                    ?>
-                                        <option value="<?php echo $row[0]; ?>" <?php echo isset($user_id) && $user_id == $row[0] ? "selected" : '' ?>>
-                                            <?php echo $row[4] . ', ' . $row[2] . ' ' . $row[3][0] . '. | ' . $row[1]; ?>
-                                        </option>
-                                    <?php } ?>
+                                <?php
+                                    $borrower = $conn->query("SELECT *,concat(lastName,', ',firstName) as name FROM tbl_users order by concat(lastName,', ',firstName) asc ");
+                                ?> 
+                                <select class="selectborrower">
+                                    <option value=""></option>
+                                    <?php while ($row = $borrower->fetch_assoc()): ?>
+                                        <option value="<?php echo $row['user_id'] ?>" <?php echo isset($borrower_id) && $borrower_id == $row['user_id'] ? "selected" : '' ?>><?php echo $row['name'] .' '. $row['middleName'][0] . '.o | Account No.: '.$row['accountNumber'] ?></option>
+                                    <?php endwhile; ?>
                                 </select>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label>Loan Plan</label>
-                                <select class="custom-select form-control-border border-width-2" id="exampleSelectBorderWidth2">
-                                    <?php
-                                    $query = mysqli_query($conn, "SELECT * FROM loan_plans WHERE plan_id != '" . $_SESSION['accountNumber'] . "'");
-                                    while ($row = mysqli_fetch_array($query)) {
-                                    ?>
-                                        <option value="<?php echo $row[0]; ?>"><?php echo $row[1] . ' month/s [ ' . $row[2] . '%, ' . $row[3] . ' ]'; ?></option>
-                                    <?php } ?>
+                                <?php
+                                    $plan = $conn->query("SELECT * FROM loan_plans order by `plan_term` desc ");
+                                ?> 
+                                <select class="selectplan">
+                                    <option value=""></option>
+                                    <?php while ($row = $plan->fetch_assoc()): ?>
+                                        <option value="<?php echo $row['plan_id'] ?>" <?php echo isset($plan_id) && $plan_id == $row['plan_id'] ? "selected" : '' ?> data-months="<?php echo $row['plan_term'] ?>" data-interest_percentage="<?php echo $row['interest_percentage'] ?>"><?php echo $row['plan_term'] . ' month/s [ '.$row['interest_percentage'].'%, '.$row['mode_of_payment'].' ]'?></option>
+                                    <?php endwhile; ?>
                                 </select>
                                 <small>months [interest%, mode of payment]</small>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Loan Type</label>
-                                <select class="custom-select form-control-border border-width-2" id="exampleSelectBorderWidth2">
-                                    <?php
-                                    $query = mysqli_query($conn, "SELECT * FROM loan_types WHERE typeofLoan != '" . $_SESSION['accountNumber'] . "'");
-                                    while ($row = mysqli_fetch_array($query)) {
-                                    ?>
-                                        <option value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
-                                    <?php } ?>
+                                <label>Loan Type</label>
+                                <?php
+                                    $type = $conn->query("SELECT * FROM loan_types order by `typeofLoan` desc ");
+                                ?>
+                                <select class="selecttype">
+                                    <option value=""></option>
+                                    <?php while($row = $type->fetch_assoc()): ?>
+                                        <option value="<?php echo $row['loantype_id'] ?>" <?php echo isset($loantype_id) && $loantype_id == $row['loantype_id'] ? "selected" : '' ?>><?php echo $row['typeofLoan'] ?></option>
+                                    <?php endwhile; ?>
                                 </select>
                             </div>
                         </div>

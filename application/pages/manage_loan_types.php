@@ -40,6 +40,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <button class="btn btn-primary offset-md-3" type="submit" name="addloantype_btn" value="submit"> Save</button>
+                                    <input type="button" class="btn btn-secondary" value="Cancel" onclick="history.go(0)" />
                                 </div>
                             </div>
                         </div>
@@ -59,23 +60,23 @@
                             </thead>
                             <tbody>
                                 <?php
-                                    include_once('../../config/database.php');
-                                    $query = "SELECT * FROM loan_types";
-                                    $results = $conn->query($query);
+                                include_once('../../config/database.php');
+                                $query = "SELECT * FROM loan_types";
+                                $results = $conn->query($query);
                                 ?>
-                                <?php while ($row = $results->fetch_row()) :?>
-                                <tr>
-                                    <td class="text-center align-middle">1</td>
-                                    <td class="">
-                                        <p>Type Name: <b><?php echo $row[1];?></b></p>
-                                        <p>Description: <b><?php echo $row[2];?></b></p>
-                                    </td>
-                                    <td class="text-center align-middle">
-                                        <button class="btn btn-sm btn-primary my-1 edit_plan" type="button" data-id="" data-months="" data-interest_percentage="">Edit</button>
-                                        <button class="btn btn-sm btn-danger delete_plan" type="button" data-id="">Delete</button>
-                                    </td>
-                                </tr>
-                                <?php endwhile; ?> 
+                                <?php while ($row = $results->fetch_row()) : ?>
+                                    <tr>
+                                        <td class="text-center align-middle">1</td>
+                                        <td class="">
+                                            <p>Type Name: <b><?php echo $row[1]; ?></b></p>
+                                            <p>Description: <b><?php echo $row[2]; ?></b></p>
+                                        </td>
+                                        <td class="text-center align-middle">
+                                            <button class="btn btn-sm btn-primary my-1 edit_plan" type="button" data-id="" data-months="" data-interest_percentage="">Edit</button>
+                                            <button class="btn btn-sm btn-danger delete_plan" type="button" data-id="">Delete</button>
+                                        </td>
+                                    </tr>
+                                <?php endwhile; ?>
                             </tbody>
                         </table>
                     </div>

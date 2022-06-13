@@ -1,8 +1,8 @@
 <?php
-  if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
-	header('location: http://localhost/loan-management/error-pages/403-error.php');
+if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
+  header('location: http://localhost/loan-management/error-pages/403-error.php');
   exit();
-  };
+};
 ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
@@ -22,6 +22,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables-buttons/2.2.3/js/buttons.colVis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bs-custom-file-input/1.3.4/bs-custom-file-input.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+<script src="../../assets/js/select2.min.js"></script>
 <!-- AdminLTE App -->
 <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
 
@@ -38,11 +39,66 @@
       "buttons": [""]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
   });
-  $('.select2').select2({
-		placeholder:"Please select here",
-		width:"100%"
-	})
   $(function() {
     $('[data-toggle="tooltip"]').tooltip()
   })
+</script>
+
+<script>
+  $('.selectborrower').select2({
+    placeholder: 'Select a borrower',
+    width:"100%"
+  });
+  $('.selectplan').select2({
+    placeholder: 'Select a plan',
+    width:"100%"
+  });
+  $('.selecttype').select2({
+    placeholder: 'Select a loan type',
+    width:"100%"
+  });
+</script>
+
+
+<!-- script for switch theme -->
+<script>
+  var toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+  var currentTheme = localStorage.getItem('theme');
+  var mainHeader = document.querySelector('.main-header');
+
+  if (currentTheme) {
+    if (currentTheme === 'dark') {
+      if (!document.body.classList.contains('dark-mode')) {
+        document.body.classList.add("dark-mode");
+      }
+      if (mainHeader.classList.contains('navbar-light')) {
+        mainHeader.classList.add('navbar-dark');
+        mainHeader.classList.remove('navbar-light');
+      }
+      toggleSwitch.checked = true;
+    }
+  }
+
+  function switchTheme(e) {
+    if (e.target.checked) {
+      if (!document.body.classList.contains('dark-mode')) {
+        document.body.classList.add("dark-mode");
+      }
+      if (mainHeader.classList.contains('navbar-light')) {
+        mainHeader.classList.add('navbar-dark');
+        mainHeader.classList.remove('navbar-light');
+      }
+      localStorage.setItem('theme', 'dark');
+    } else {
+      if (document.body.classList.contains('dark-mode')) {
+        document.body.classList.remove("dark-mode");
+      }
+      if (mainHeader.classList.contains('navbar-dark')) {
+        mainHeader.classList.add('navbar-light');
+        mainHeader.classList.remove('navbar-dark');
+      }
+      localStorage.setItem('theme', 'light');
+    }
+  }
+  toggleSwitch.addEventListener('change', switchTheme, false);
 </script>
