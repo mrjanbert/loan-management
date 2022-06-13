@@ -1,3 +1,9 @@
+<?php
+  if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
+	header('location: http://localhost/loan-management/error-pages/403-error.php');
+  exit();
+  };
+?>
 <div class="modal fade" id="addloan">
     <div class="modal-dialog modal-md">
         <div class="modal-content card-outline card-primary">

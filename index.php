@@ -49,7 +49,7 @@
               <input type="checkbox" onclick="myFunction()">&nbsp;&nbsp;Show password
             </div>
             <div class="form-group">
-              <button type="submit" name="login_btn" value="submit" class="btn btn-primary float-right">Login Now</button>
+              <button type="submit" name="login_btn" value="submit" class="btn btn-primary float-right">Login</button>
             </div>
           </form>
         </div>

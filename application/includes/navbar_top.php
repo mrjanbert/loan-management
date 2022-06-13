@@ -1,3 +1,9 @@
+<?php
+  if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
+	header('location: http://localhost/loan-management/error-pages/403-error.php');
+  exit();
+  };
+?>
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
 	<!-- Left navbar links -->
 	<ul class="navbar-nav">
