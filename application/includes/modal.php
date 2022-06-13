@@ -1,6 +1,6 @@
 <?php
 if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
-    header('location: http://localhost/loan-management/error-pages/403-error.php');
+    header('location: http://localhost/loan-management/application/pages/error-pages/403-error.php');
     exit();
 };
 ?>
@@ -18,7 +18,7 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
 <div class="modal fade" id="addloan">
     <div class="modal-dialog modal-md">
         <div class="modal-content card-outline card-primary">
-            <form action="">
+            <form action="#">
                 <div class="modal-header">
                     <h4 class="modal-title">Apply New Loan</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -29,25 +29,25 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <label>Borrower</label>
+                                <label>Borrower<small class="text-red">*</small></label>
                                 <?php
                                     $borrower = $conn->query("SELECT *,concat(lastName,', ',firstName) as name FROM tbl_users order by concat(lastName,', ',firstName) asc ");
                                 ?> 
-                                <select class="selectborrower">
+                                <select class="selectborrower" required>
                                     <option value=""></option>
                                     <?php while ($row = $borrower->fetch_assoc()): ?>
-                                        <option value="<?php echo $row['user_id'] ?>" <?php echo isset($borrower_id) && $borrower_id == $row['user_id'] ? "selected" : '' ?>><?php echo $row['name'] .' '. $row['middleName'][0] . '.o | Account No.: '.$row['accountNumber'] ?></option>
+                                        <option value="<?php echo $row['user_id'] ?>" <?php echo isset($borrower_id) && $borrower_id == $row['user_id'] ? "selected" : '' ?>><?php echo $row['name'] .' '. $row['middleName'][0] . '. | Account No.: '.$row['accountNumber'] ?></option>
                                     <?php endwhile; ?>
                                 </select>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
-                                <label>Loan Plan</label>
+                                <label>Loan Plan<small class="text-red">*</small></label>
                                 <?php
                                     $plan = $conn->query("SELECT * FROM loan_plans order by `plan_term` desc ");
                                 ?> 
-                                <select class="selectplan">
+                                <select class="selectplan" required>
                                     <option value=""></option>
                                     <?php while ($row = $plan->fetch_assoc()): ?>
                                         <option value="<?php echo $row['plan_id'] ?>" <?php echo isset($plan_id) && $plan_id == $row['plan_id'] ? "selected" : '' ?> data-months="<?php echo $row['plan_term'] ?>" data-interest_percentage="<?php echo $row['interest_percentage'] ?>"><?php echo $row['plan_term'] . ' month/s [ '.$row['interest_percentage'].'%, '.$row['mode_of_payment'].' ]'?></option>
@@ -58,11 +58,11 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
                         </div>
                         <div class="col-12">
                             <div class="form-group">
-                                <label>Loan Type</label>
+                                <label>Loan Type<small class="text-red">*</small></label>
                                 <?php
                                     $type = $conn->query("SELECT * FROM loan_types order by `typeofLoan` desc ");
                                 ?>
-                                <select class="selecttype">
+                                <select class="selecttype" required>
                                     <option value=""></option>
                                     <?php while($row = $type->fetch_assoc()): ?>
                                         <option value="<?php echo $row['loantype_id'] ?>" <?php echo isset($loantype_id) && $loantype_id == $row['loantype_id'] ? "selected" : '' ?>><?php echo $row['typeofLoan'] ?></option>
@@ -72,14 +72,14 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
                         </div>
                         <div class="col-8">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Purpose</label>
-                                <input type="text" class="form-control" id="" placeholder="">
+                                <label>Purpose<small class="text-red">*</small></label>
+                                <input type="text" class="form-control" id="" required>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Amount</label>
-                                <input type="text" class="form-control" id="" placeholder="">
+                                <label>Amount<small class="text-red">*</small></label>
+                                <input type="text" class="form-control" id="" required>
                             </div>
                         </div>
                         <div class="col-12 d-flex justify-content-end">

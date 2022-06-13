@@ -1,6 +1,6 @@
 <?php
 if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
-	header('location: http://localhost/loan-management/error-pages/403-error.php');
+	header('location: http://localhost/loan-management/application/pages/error-pages/403-error.php');
 	exit();
 };
 ?>
@@ -28,7 +28,7 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
 			</div>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link btn btn-outline-secondary" title="Logout" data-toggle="tooltip" data-placement="left" href="../../logout.php" role="button" onclick="return confirm('Confirm logout?');">
+			<a class="nav-link btn btn-outline-secondary" data-delay="1000" title="Logout" data-toggle="tooltip" data-placement="left" href="../../logout.php" role="button" onclick="return confirm('Confirm logout?');">
 				<i class="fa-solid fa-right-from-bracket"></i>
 			</a>
 		</li>
