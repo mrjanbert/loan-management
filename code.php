@@ -37,6 +37,53 @@ if (isset($_POST['register_btn'])) {
     endif;
 }
 
+if (isset($_POST['register_borrower_btn'])) {
+    $account_number = '12'.rand(1000000,10000000);
+    $first_name = $_POST['first_name'];
+    $middle_name = $_POST['middle_name'];
+    $last_name = $_POST['last_name'];
+    $address = $_POST['address'];
+    $age = $_POST['age'];
+
+    $profile_picture = 'resources/uploads/' .$_FILES['profile_picture']['name'];
+
+    $birth_date = $_POST['birth_date'];
+    $contact_number = '+63' .$_POST['contact_number'];
+    $email_address = $_POST['email_address'];
+    $password = $_POST['password'];
+    $encrypt = base64_encode($password);
+
+    
+	$photo = $_FILES['profile_picture']['tmp_name'];
+	if(move_uploaded_file($photo,$profile_picture)) {
+        $query = "INSERT INTO tbl_borrowers
+            SET
+                account_number = '$account_number',
+                first_name = '$first_name',
+                middle_name = '$middle_name',
+                last_name = '$last_name',
+                address = '$address',
+                age = '$age',
+                profile_picture = '$profile_picture',
+                birth_date = '$birth_date',
+                contact_number = '$contact_number',
+                email_address = '$email_address',
+                password = '$encrypt'
+            ";
+        $results = $conn->query($query);
+        if ($conn->affected_rows > 0) :
+            $_SESSION["status"] = "<script>$(function(){toastr.success('Registered successfully.')});</script>";
+            header('location: application/pages/borrowers/login.php');
+        else :
+            $_SESSION["status"] = "<script>$(function(){toastr.danger('Error adding user! Please try again. ')});</script>";
+            header('location: application/pages/borrowers/register.php');
+        endif;
+    } else {
+        $_SESSION["status"] = "<script>$(function(){toastr.danger('Registration failed! Please try again. ')});</script>";
+        header('location: application/pages/borrowers/register.php');
+    }
+}
+
 if (isset($_POST['editUser_btn'])) {
     $user_id = $_POST['user_id'];
     $accountNumber = $_POST['accountNumber'];
@@ -47,7 +94,7 @@ if (isset($_POST['editUser_btn'])) {
     $age = $_POST['age'];
     $birthDate = $_POST['birthDate'];
     $contactNumber = '+63' .$_POST['contactNumber'];
-    $profilePhoto = 'phresources/Images/uploads' .$_FILES['profilePhoto']['firstName'];
+    $profilePhoto = 'resources/uploads/' .$_FILES['profilePhoto']['name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $encrypt = base64_encode($password);
@@ -72,7 +119,7 @@ if (isset($_POST['editUser_btn'])) {
         WHERE
             accountNumber = '$accountNumber'";
             $results = $conn->query($query);
-        if ($db->affected_rows > 0) {
+        if ($conn->affected_rows > 0) {
             $_SESSION["status"] = "<script>$(function(){toastr.success('Update Successful.')});</script>";
             header('location: application/pages/borrowers.php?page=borrowers&accountNumber='.$_SESSION['accountNumber']);
         } else {
@@ -102,6 +149,29 @@ if (isset($_POST['login_btn'])) {
         $_SESSION["status"] = "<div class=\"preloader flex-column justify-content-center align-items-center\">
         <img class=\"animation__shake\" src=\"../../resources/Images/logo.png\" height=\"200\" width=\"200\"></div>";
 		header('location: application/pages/home.php?page=dashboard&accountNumber='.$_SESSION['accountNumber']);
+	} else {
+        $_SESSION["status"] = "<script>$(function(){toastr.error('Invalid username! Please try again.')});</script>";
+        header('location: index.php');
+    }
+}
+
+if (isset($_POST['login_borrower_btn'])) {
+	$email_address = $_POST['email_address'];
+	$password = $_POST['password'];
+    $encrypt = base64_encode($password);
+
+	$query = "SELECT * FROM tbl_borrowers WHERE email_address = '" . $email_address . "' AND password = '" . $encrypt . "'";
+	$result = mysqli_query($conn, $query);
+	$count = mysqli_num_rows($result);
+
+	if ($count > 0) {
+		$data = $result->fetch_array();
+		$_SESSION['borrower_id'] = $data['borrower_id'];
+		$_SESSION['account_number'] = $data['account_number'];
+		$_SESSION['email_address'] = $email_address;
+        $_SESSION["status"] = "<div class=\"preloader flex-column justify-content-center align-items-center\">
+        <img class=\"animation__shake\" src=\"../../../resources/Images/logo.png\" height=\"200\" width=\"200\"></div>";
+		header('location: application/pages/borrowers/home.php?page=dashboard&account_number='.$_SESSION['account_number']);
 	} else {
         $_SESSION["status"] = "<script>$(function(){toastr.error('Invalid username! Please try again.')});</script>";
         header('location: index.php');
