@@ -14,7 +14,7 @@ if (!isset($_SESSION['user_id'])) {
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Home - NMSC Loan Management</title>
 	<link rel="icon" type="image/x-icon" href="https://www.nmsc.edu.ph/application/themes/nmsc/favicon.ico">
-	<?php require_once('../includes/links-header.php'); ?>	
+	<?php require_once('../../assets/includes/links-header.php'); ?>	
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed" id="switch-mode">
@@ -57,8 +57,8 @@ if (!isset($_SESSION['user_id'])) {
 		}
 		?>
 
-		<?php require_once('../includes/navbar_top.php'); ?>
-		<?php require_once('../includes/sidebar_menu.php'); ?>
+		<?php require_once('../../assets/includes/navbar_top.php'); ?>
+		<?php require_once('../../assets/includes/sidebar_menu.php'); ?>
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
@@ -76,8 +76,8 @@ if (!isset($_SESSION['user_id'])) {
 	</div>
 	</div><!-- /.wrapper -->
 
-	<?php require_once('../includes/modal.php'); ?>
-	<?php require_once('../includes/links-footer.php'); ?>
+	<?php require_once('../../assets/includes/modal.php'); ?>
+	<?php require_once('../../assets/includes/links-footer.php'); ?>
 	<?php unset($_SESSION["status"]); ?>
 </body>
 

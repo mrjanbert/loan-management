@@ -147,10 +147,10 @@ if (isset($_POST['login_btn'])) {
 		$_SESSION['accountNumber'] = $data['accountNumber'];
 		$_SESSION['email'] = $email;
         $_SESSION["status"] = "<div class=\"preloader flex-column justify-content-center align-items-center\">
-        <img class=\"animation__shake\" src=\"../../resources/Images/logo.png\" height=\"200\" width=\"200\"></div>";
+        <img class=\"animation__shake\" src=\"../../assets/img/logo.png\" height=\"200\" width=\"200\"></div>";
 		header('location: application/pages/home.php?page=dashboard&accountNumber='.$_SESSION['accountNumber']);
 	} else {
-        $_SESSION["status"] = "<script>$(function(){toastr.error('Invalid username! Please try again.')});</script>";
+        $_SESSION["status"] = "<script>$(function(){toastr.error('Invalid username or password! Please try again.')});</script>";
         header('location: index.php');
     }
 }

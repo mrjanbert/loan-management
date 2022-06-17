@@ -12,8 +12,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - NMSC Loan Management</title>
-  <link rel="icon" type="image/x-icon" href="https://www.nmsc.edu.ph/application/themes/nmsc/favicon.ico">
-  <?php include_once('application/includes/links-header.php');?>
+  <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+  <?php include_once('assets/includes/links-header.php');?>
 </head>
 
 <body class="hold-transition login-page">
@@ -75,7 +75,7 @@
     <!-- unset toast notification to avoid popup every load -->
     <?php unset($_SESSION["status"]); ?>
 
-    <?php include_once('application/includes/links-footer.php'); ?>
+    <?php include_once('assets/includes/links-footer.php'); ?>
 </body>
 
 </html>

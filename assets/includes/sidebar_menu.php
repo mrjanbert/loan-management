@@ -1,13 +1,13 @@
 <?php
-  if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
-	header('location: http://localhost/loan-management/application/pages/error-pages/403-error.php');
-  exit();
-  };
+if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
+    header('location: http://localhost/loan-management/application/pages/error-pages/403-error.php');
+    exit();
+};
 ?>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-        <img src="../../resources/Images/logo.png" alt="NMSC Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src="../../assets/img/logo.png" alt="NMSC Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Loan Management</span>
     </a>
 
@@ -16,13 +16,13 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel my-1 d-flex">
             <div class="image d-flex align-items-center">
-                <img src="../../resources/Images/profile.png" class="img-circle elevation-3" alt="User Image">
+                <img src="../../assets/img/profile.png" class="img-circle elevation-3" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="text-white h5"><?php echo $firstName. ' ' .$lastName; ?> <i class="fa-solid fa-circle text-success fa-2xs ml-2"></i></a>
+                <a href="#" class="text-white h5"><?php echo $firstName . ' ' . $lastName; ?> <i class="fa-solid fa-circle text-success fa-2xs ml-2"></i></a>
                 <p class="d-block text-primary" readonly><small><?php echo $email ?></small></p>
             </div>
-            
+
         </div>
 
         <!-- Sidebar Menu -->
@@ -37,13 +37,13 @@
                 </li>
                 <li class="nav-item">
                     <a href="home.php?page=payments&accountNumber=<?php echo $accountNumber ?>" class="nav-link nav-payments">
-                    <i class="fa-solid fa-money-bill fa-lg mr-2"></i>
+                        <i class="fa-solid fa-money-bill fa-lg mr-2"></i>
                         <p>Payments</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="home.php?page=sms_logs&accountNumber=<?php echo $accountNumber ?>" class="nav-link nav-sms_logs">
-                    <i class="fa-solid fa-message fa-lg mr-2"></i>
+                        <i class="fa-solid fa-message fa-lg mr-2"></i>
                         <p>SMS Logs</p>
                     </a>
                 </li>
@@ -84,10 +84,27 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="home.php?page=permission_list&accountNumber=<?php echo $accountNumber ?>" class="nav-link nav-permission">
-                        <i class="fa-solid fa-user-group fa-lg mr-2"></i>
-                        <p>Permission List</p>
+                    <a href="#" class="nav-link nav-permission_add">
+                        <i class="nav-icon fas fa-book"></i>
+                        <p>
+                            Module Permission
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="pages/examples/invoice.html" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Module Permission List</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="home.php?page=permission_add&accountNumber=<?php echo $accountNumber ?>" class="nav-link nav-permission_add">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Add Permission</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </nav> <!-- /.sidebar-menu -->

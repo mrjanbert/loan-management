@@ -19,6 +19,29 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
 
 	<!-- Right navbar links -->
 	<ul class="navbar-nav ml-auto">
+		<!-- Philippine Standard Time -->
+		<!-- <li class="nav-item">
+			<div class="ph-time pt-2" style="font-family: 'Courier Prime', monospace;"></div>
+		</li>
+
+		<script type="text/javascript" id="gwt-pst">
+			(function(d, eId) {
+				var js, gjs = d.getElementById(eId);
+				js = d.createElement('script');
+				js.id = 'gwt-pst-jsdk';
+				js.src = "//gwhs.i.gov.ph/pst/gwtpst.js?" + new Date().getTime();
+				gjs.parentNode.insertBefore(js, gjs);
+			}(document, 'gwt-pst'));
+
+			var gwtpstReady = function() {
+				var otherFormat = 'dddd mmm dd, yyyy HH:MM:ss TT';
+				var firstPst = new gwtpstTime({
+					timerClass: 'ph-time',
+					format: otherFormat
+				});
+			}
+		</script> -->
+
 		<li class="nav-item">
 			<div class="theme-switch-wrapper nav-link">
 				<label class="theme-switch" for="checkbox">
