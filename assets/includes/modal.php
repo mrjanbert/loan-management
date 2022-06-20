@@ -73,13 +73,13 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
                         <div class="col-8">
                             <div class="form-group">
                                 <label>Purpose<small class="text-red">*</small></label>
-                                <input type="text" class="form-control" id="" required>
+                                <input type="text" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label>Amount<small class="text-red">*</small></label>
-                                <input type="text" class="form-control" id="" required>
+                                <input type="text" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-12 d-flex justify-content-end">

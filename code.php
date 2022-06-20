@@ -13,6 +13,7 @@ if (isset($_POST['register_btn'])) {
     $contactNumber = '+63' .$_POST['contactNumber'];
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $user_role = $_POST['user_role'];
     $encrypt = base64_encode($password);
     $query = "INSERT INTO tbl_users
         SET
@@ -26,6 +27,7 @@ if (isset($_POST['register_btn'])) {
             contactNumber = '$contactNumber',
             email = '$email',
             password = '$encrypt'
+            user_role = '$user_role'
         ";
     $results = $conn->query($query);
     if ($conn->affected_rows > 0) :
@@ -121,19 +123,19 @@ if (isset($_POST['editUser_btn'])) {
             $results = $conn->query($query);
         if ($conn->affected_rows > 0) {
             $_SESSION["status"] = "<script>$(function(){toastr.success('Update Successful.')});</script>";
-            header('location: application/pages/borrowers.php?page=borrowers&accountNumber='.$_SESSION['accountNumber']);
+            header('location: application/pages/borrowers.php?page=borrower_list&accountNumber='.$_SESSION['accountNumber']);
         } else {
             $_SESSION["status"] = "<script>$(function(){toastr.error('Update Error.')});</script>";
-            header('location: application/pages/edit_user.php?page=edit_user&accountNumber='.$_SESSION['accountNumber']);
+            header('location: application/pages/edit_user.php?page=borrower_update&accountNumber='.$_SESSION['accountNumber']);
         }
     } else {
         $_SESSION["status"] = "<script>$(function(){toastr.error('Update Error. Photo not uploaded.')});</script>";
-        header('location: application/pages/edit_user.php?page=edit_user&accountNumber='.$_SESSION['accountNumber']);
+        header('location: application/pages/edit_user.php?page=borrower_update&accountNumber='.$_SESSION['accountNumber']);
     }
 }
 
 if (isset($_POST['login_btn'])) {
-	$email = $_POST['email'];
+	$email = $_POST['email']; 
 	$password = $_POST['password'];
     $encrypt = base64_encode($password);
 
@@ -170,15 +172,13 @@ if (isset($_POST['login_borrower_btn'])) {
 		$_SESSION['account_number'] = $data['account_number'];
 		$_SESSION['email_address'] = $email_address;
         $_SESSION["status"] = "<div class=\"preloader flex-column justify-content-center align-items-center\">
-        <img class=\"animation__shake\" src=\"../../../resources/Images/logo.png\" height=\"200\" width=\"200\"></div>";
+        <img class=\"animation__wobble\" src=\"../../../resources/Images/logo.png\" height=\"200\" width=\"200\"></div>";
 		header('location: application/pages/borrowers/home.php?page=dashboard&account_number='.$_SESSION['account_number']);
 	} else {
         $_SESSION["status"] = "<script>$(function(){toastr.error('Invalid username! Please try again.')});</script>";
         header('location: index.php');
     }
 }
-
-
 
 if (isset($_POST['addplan_btn'])) {
     $term = $_POST['plan_term'];
@@ -202,7 +202,6 @@ if (isset($_POST['addplan_btn'])) {
 }
 
 
-
 if (isset($_POST['addloantype_btn'])) {
     $typeofLoan = $_POST['typeofLoan'];
     $description = $_POST['description'];
@@ -221,8 +220,6 @@ if (isset($_POST['addloantype_btn'])) {
         header('location: application/pages/home.php?page=manage_loan_types');
     endif;
 }
-
-
 
 if (isset($_POST['addcharges_btn'])) {
     $charges_type = $_POST['charges_type'];
@@ -243,19 +240,135 @@ if (isset($_POST['addcharges_btn'])) {
         header('location: application/pages/home.php?page=manage_charges_list');
     endif;
 }
+ 
+if (isset($_POST['save_module'])) {
+    $selecteduser = mysqli_real_escape_string($conn, $_POST['selecteduser']);
 
+    $verify = mysqli_query($conn, "SELECT * FROM module_permission WHERE accountNumber = '$selecteduser'");
+    $get_verify = mysqli_num_rows($verify);
+    if ($get_verify == 8) {
+        echo "<script>alert('Error: Permission Already granted. Please visit permission list to see!!'); </script>";
+    } else {
+        //Starting of first module
+        $module1 = mysqli_real_escape_string($conn, $_POST['payments']);
+        $pcreate1 = (isset($_POST['payments_create'])) ? 1 : 0;
+        $pread1 = (isset($_POST['payments_read'])) ? 1 : 0;
+        $pupdate1 = (isset($_POST['payments_update'])) ? 1 : 0;
+        $pdelete1 = (isset($_POST['payments_delete'])) ? 1 : 0;
 
-if (isset($_POST['logout_btn'])) {
-    
-    session_start();
-    if (isset($_SESSION['user_id'])) {
-        // unset($_SESSION['verified_user_id']);
-        // unset($_SESSION['idTokenString']);
-        session_destroy();
-        session_start();
-        $_SESSION['status']="<script>$(function(){toastr.success('Logged out successfully')});</script>";;
-        header('location: index.php');
+        $insert = mysqli_query($conn, "INSERT INTO module_permission VALUES('','$selecteduser','$module1','$pcreate1','$pread1','$pupdate1','$pdelete1')");
+        //End of first module
+
+        //Starting of second module
+        $module2 = mysqli_real_escape_string($conn, $_POST['sms_logs']);
+        $pcreate2 = (isset($_POST['sms_logs_create'])) ? 1 : 0;
+        $pread2 = (isset($_POST['sms_logs_read'])) ? 1 : 0;
+        $pupdate2 = (isset($_POST['sms_logs_update'])) ? 1 : 0;
+        $pdelete2 = (isset($_POST['sms_logs_delete'])) ? 1 : 0;
+
+        $insert = mysqli_query($conn, "INSERT INTO module_permission VALUES('','$selecteduser','$module2','$pcreate2','$pread2','$pupdate2','$pdelete2')");
+        //End of second module
+
+        //Starting of third module
+        $module3 = mysqli_real_escape_string($conn, $_POST['manage_loans']);
+        $pcreate3 = (isset($_POST['manage_loans_create'])) ? 1 : 0;
+        $pread3 = (isset($_POST['manage_loans_read'])) ? 1 : 0;
+        $pupdate3 = (isset($_POST['manage_loans_update'])) ? 1 : 0;
+        $pdelete2 = (isset($_POST['manage_loans_delete'])) ? 1 : 0;
+
+        $insert = mysqli_query($conn, "INSERT INTO module_permission VALUES('','$selecteduser','$module3','$pcreate3','$pread3','$pupdate3','$pdelete3')");
+        //End of third module
+
+        //Starting of fourth module
+        $module4 = mysqli_real_escape_string($conn, $_POST['loan_plans']);
+        $pcreate4 = (isset($_POST['loan_plans_create'])) ? 1 : 0;
+        $pread4 = (isset($_POST['loan_plans_read'])) ? 1 : 0;
+        $pupdate4 = (isset($_POST['loan_plans_update'])) ? 1 : 0;
+        $pdelete4 = (isset($_POST['loan_plans_delete'])) ? 1 : 0;
+
+        $insert = mysqli_query($conn, "INSERT INTO module_permission VALUES('','$selecteduser','$module4','$pcreate4','$pread4','$pupdate4','$pdelete4')");
+        //End of fourth module
+
+        //Starting of fifth module
+        $module5 = mysqli_real_escape_string($conn, $_POST['loan_types']);
+        $pcreate5 = (isset($_POST['loan_types_create'])) ? 1 : 0;
+        $pread5 = (isset($_POST['loan_types_read'])) ? 1 : 0;
+        $pupdate5 = (isset($_POST['loan_types_update'])) ? 1 : 0;
+        $pdelete5 = (isset($_POST['loan_types_delete'])) ? 1 : 0;
+
+        $insert = mysqli_query($conn, "INSERT INTO module_permission VALUES('','$selecteduser','$module5','$pcreate5','$pread5','$pupdate5','$pdelete5')");
+        //End of fifth module
+
+        //Starting of sixth module
+        $module6 = mysqli_real_escape_string($conn, $_POST['charges']);
+        $pcreate6 = (isset($_POST['charges_create'])) ? 1 : 0;
+        $pread6 = (isset($_POST['charges_read'])) ? 1 : 0;
+        $pupdate6 = (isset($_POST['charges_update'])) ? 1 : 0;
+        $pdelete6 = (isset($_POST['charges_delete'])) ? 1 : 0;
+
+        $insert = mysqli_query($conn, "INSERT INTO module_permission VALUES('','$selecteduser','$module6','$pcreate6','$pread6','$pupdate','$pdelete6')");
+        //End of sixth module
+
+        //Starting of seventh module
+        $module7 = mysqli_real_escape_string($conn, $_POST['borrowers']);
+        $pcreate7 = (isset($_POST['borrowers_create'])) ? 1 : 0;
+        $pread7 = (isset($_POST['borrowers_read'])) ? 1 : 0;
+        $pupdate7 = (isset($_POST['borrowers_update'])) ? 1 : 0;
+        $pdelete7 = (isset($_POST['borrowers_delete'])) ? 1 : 0;
+
+        $insert = mysqli_query($conn, "INSERT INTO module_permission VALUES('','$selecteduser','$module7','$pcreate7','$pread7','$pupdate7','$pdelete7')");
+        //End of seventh module
+
+        //Starting of eighth module
+        $module8 = mysqli_real_escape_string($conn, $_POST['user_management']);
+        $pcreate8 = (isset($_POST['user_management_create'])) ? 1 : 0;
+        $pread8 = (isset($_POST['user_management_read'])) ? 1 : 0;
+        $pupdate8 = (isset($_POST['user_management_update'])) ? 1 : 0;
+        $pdelete8 = (isset($_POST['user_management_delete'])) ? 1 : 0;
+
+        $insert = mysqli_query($conn, "INSERT INTO module_permission VALUES('','$selecteduser','$module8','$pcreate8','$pread8','$pupdate8','$pdelete8')");
+        //End of eighth module
+
+        if (!$insert) {
+            echo "<script>alert('Record not inserted.....Please try again later!'); </script>";
+        } else {
+            echo "<script>alert('Permission Added Successfully!!'); </script>";
+            header('location: application/pages/home.php?page=user_permission_list');
+        }
     }
+}
+
+// Edit Permission
+if (isset($_POST['edit_permission'])) {
+    $accountNumber = $_GET['accountNumber'];
+    $selector = $_POST['selector'];
+    $i = 0;
+    foreach ($selector as $s) {
+        //$module = mysqli_real_escape_string($link, $_POST['module'][$i]);
+        $mod_create = (isset($_POST['mod_create']) && ($_POST['mod_create'][$i] == '1')) ? 1 : 0;
+        $mod_read = (isset($_POST['mod_read']) && ($_POST['mod_read'][$i] == '1'))  ? 1 : 0;
+        $mod_update = (isset($_POST['mod_update']) && ($_POST['mod_update'][$i] == '1'))  ? 1 : 0;
+        $mod_delete = (isset($_POST['mod_delete']) && ($_POST['mod_delete'][$i] == '1'))  ? 1 : 0;
+
+        $update = mysqli_query($conn, "UPDATE module_permission SET mod_create = '$mod_create', mod_read = '$mod_read', mod_update ='$mod_update', mod_delete ='$mod_delete' WHERE mod_id ='$s'");
+        $i++;
+
+        if (!$update) {
+            echo "<script>alert('Record not update.....Please try again later!'); </script>";
+        } else {
+            $_SESSION["status"] = "<script>$(function(){toastr.success('Permission updated.')});</script>";
+            header('location: application/pages/home.php?page=user_permission_list');
+        }
+    }
+}
+
+
+// Delete permission
+if (isset($_GET['accountNumber'])) {
+    $accountNumber = $_GET['accountNumber'];
+    $result = mysqli_query($conn, "DELETE FROM module_permission WHERE accountNumber ='$accountNumber'");
+    $_SESSION["status"] = "<script>$(function(){toastr.success('Permission deleted.')});</script>";
+    header('location: application/pages/home.php?page=user_permission_list');
 }
 
 ?>

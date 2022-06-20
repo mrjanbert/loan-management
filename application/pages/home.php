@@ -1,8 +1,8 @@
 <?php
 session_start();
-
 if (!isset($_SESSION['user_id'])) {
-	header('location: 404-error.php');
+	$_SESSION["status"] = "<script>$(function(){toastr.warning('You must login first.')});</script>";
+	header('location: ../../index.php');
 }
 ?>
 <!DOCTYPE html>
@@ -14,10 +14,11 @@ if (!isset($_SESSION['user_id'])) {
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Home - NMSC Loan Management</title>
 	<link rel="icon" type="image/x-icon" href="https://www.nmsc.edu.ph/application/themes/nmsc/favicon.ico">
-	<?php require_once('../../assets/includes/links-header.php'); ?>	
+	<?php include_once('../../assets/includes/links-header.php'); ?>
+	<link rel="stylesheet" href="../../assets/css/themeswitch.css">	
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed" id="switch-mode">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" id="switch-mode">
 	<div class="wrapper">
 		<!-- Toast Notification -->
 		<?php 
@@ -73,11 +74,11 @@ if (!isset($_SESSION['user_id'])) {
 				<b>Capstone Project</b> 2022
 			</div>
 		</footer>
-	</div>
 	</div><!-- /.wrapper -->
 
-	<?php require_once('../../assets/includes/modal.php'); ?>
-	<?php require_once('../../assets/includes/links-footer.php'); ?>
+	<?php include_once('../../assets/includes/modal.php'); ?>
+	<?php include_once('../../assets/includes/links-footer.php'); ?>
+	<script src="../../assets/js/themeswitch.js"></script>
 	<?php unset($_SESSION["status"]); ?>
 </body>
 

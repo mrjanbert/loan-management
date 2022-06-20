@@ -1,3 +1,9 @@
+<?php
+	if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
+	header('location: http://localhost/loan-management/application/pages/error-pages/403-error.php');
+	exit();
+	};
+?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
@@ -73,7 +79,7 @@
                                         </td>
                                         <td class="text-center align-middle">
                                             <button class="btn btn-sm btn-primary my-1 edit_plan" type="button" data-id="" data-months="" data-interest_percentage="">Edit</button>
-                                            <button class="btn btn-sm btn-danger delete_plan" type="button" data-id="">Delete</button>
+                                            <button class="btn btn-sm btn-danger delete_plan" type="button">Delete</button>
                                         </td>
                                     </tr>
                                 <?php endwhile; ?>

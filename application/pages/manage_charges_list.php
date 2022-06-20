@@ -1,3 +1,9 @@
+<?php
+	if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
+	header('location: http://localhost/loan-management/application/pages/error-pages/403-error.php');
+	exit();
+	};
+?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <div class="container-fluid">

@@ -1,3 +1,9 @@
+<?php
+	if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
+	header('location: http://localhost/loan-management/application/pages/error-pages/403-error.php');
+	exit();
+	};
+?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
@@ -23,10 +29,12 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">List of Borrowers</h3>
-                        <button class="btn btn-success btn-xs" style="margin-left: 74%" data-toggle="modal" data-target="#add">
-                            <i class="fa fa-plus"></i> &nbsp;
-                            Add New Borrower
-                        </button>
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#addborrower">
+                                <i class="fa fa-plus"></i> &nbsp;
+                                Add New Borrower
+                            </button>
+                        </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -46,8 +54,8 @@
                             </thead>
                             <tbody>
                                 <?php
-                                    include_once('../../config/database.php');
-                                    $query = "SELECT * FROM tbl_users order by userCreated asc";
+                                    require_once('../../config/database.php');
+                                    $query = "SELECT * FROM tbl_borrowers order by userCreated asc";
                                     $results = $conn->query($query);
                                 ?>
                                 <?php while ($row = $results->fetch_row()) :?>
@@ -56,12 +64,12 @@
                                     <td><?php echo $row[1]; ?></td>
                                     <td><?php echo $row[2] .' '. $row[3] .' '. $row[4];?> </td>
                                     <td><?php echo $row[5]; ?></td>
-                                    <td><?php echo $row[7];?></td>
+                                    <td><?php echo $row[8];?></td>
                                     <td><?php echo $row[9];?></td>
                                     <td><?php echo $row[11];?></td>
                                     <td><?php echo $row[10];?></td>
                                     <td>
-                                        <a href="edit_user.php?page=borrowers&accountNumber=<?php echo $row[1];?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a>
+                                        <a href="borrower_update.php?page=borrower_list&account_number=<?php echo $row[1];?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a>
                                         <button class="btn btn-danger btn-xs my-1"><i class="fa fa-trash"></i></button>
                                         <button class="btn btn-info btn-xs" data-toggle="modal" value=<?php echo $row[1]; ?> data-target="#view_user"><i class="fa fa-eye"></i></button>
                                     </td>

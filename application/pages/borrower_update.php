@@ -12,21 +12,20 @@ if (!isset($_SESSION['user_id'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - NMSC Loan Management</title>
+    <title>Edit User Information - NMSC Loan Management</title>
     <link rel="icon" type="image/x-icon" href="https://www.nmsc.edu.ph/application/themes/nmsc/favicon.ico">
-
-    <?php include_once('../includes/links-header.php'); ?>
+    <?php include_once('../../assets/includes/links-header.php'); ?>
+	<link rel="stylesheet" href="../../assets/css/themeswitch.css">	
 </head>
 
-
-<body class="hold-transition sidebar-mini layout-fixed" id="switch-mode">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" id="switch-mode">
     <div class="wrapper">
         <!-- Toast Notification -->
         <?php
-        if (isset($_SESSION["status"])) {
-            $status = $_SESSION["status"];
-            echo "<span>$status</span>";
-        }
+            if (isset($_SESSION["status"])) {
+                $status = $_SESSION["status"];
+                echo "<span>$status</span>";
+            }
         ?>
         <!-- end of toast -->
 
@@ -59,8 +58,8 @@ if (!isset($_SESSION['user_id'])) {
         }
         ?>
 
-        <?php include_once('../includes/navbar_top.php'); ?>
-        <?php include_once('../includes/sidebar_menu.php'); ?>
+        <?php include_once('../../assets/includes/navbar_top.php'); ?>
+        <?php include_once('../../assets/includes/sidebar_menu.php'); ?>
         <!-- Content Header (Page header) -->
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -81,9 +80,8 @@ if (!isset($_SESSION['user_id'])) {
             </section>
 
             <?php
-            include_once('../../config/database.php');
-            $accountNumber = $_GET['accountNumber'];
-            $query = "SELECT * FROM tbl_users WHERE accountNumber = $accountNumber";
+            $account_number = $_GET['account_number'];
+            $query = "SELECT * FROM tbl_borrowers WHERE account_number = $account_number";
             $results = $conn->query($query);
             $row = $results->fetch_row();
             ?>
@@ -102,25 +100,25 @@ if (!isset($_SESSION['user_id'])) {
                                         <div class="form-group">
                                             <label class="control-label">Account Number</label>
                                             <div class="input-group">
-                                                <input type="number" name="acccountNumber" class="form-control" value="<?php echo $row[1]; ?>" readonly>
+                                                <input type="number" name="acccount_number" class="form-control" value="<?php echo $row[1]; ?>" readonly>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">First Name</label>
                                             <div class="input-group">
-                                                <input type="text" name="firstName" class="form-control" value="<?php echo $row[2]; ?>">
+                                                <input type="text" name="first_name" class="form-control" value="<?php echo $row[2]; ?>">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Middle Name</label>
                                             <div class="input-group">
-                                                <input type="text" name="middleName" class="form-control" value="<?php echo $row[3]; ?>">
+                                                <input type="text" name="middle_name" class="form-control" value="<?php echo $row[3]; ?>">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Last Name</label>
                                             <div class="input-group">
-                                                <input type="text" name="lastName" class="form-control" value="<?php echo $row[4]; ?>">
+                                                <input type="text" name="last_name" class="form-control" value="<?php echo $row[4]; ?>">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -138,19 +136,25 @@ if (!isset($_SESSION['user_id'])) {
                                         <div class="form-group">
                                             <label class="control-label">Birth Date</label>
                                             <div class="input-group">
-                                                <input type="date" class="form-control" name="birthDate" value="<?php echo $row[7]; ?>" required>
+                                                <input type="date" class="form-control" name="birthDate" value="<?php echo $row[8]; ?>" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Contact Number</label>
                                             <div class="input-group">
-                                                <input type="text" name="contactNumber" class="form-control" value="<?php echo $row[9]; ?>">
+                                                <input type="text" name="contact_number" class="form-control" value="<?php echo $row[9]; ?>">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Email Address</label>
+                                            <div class="input-group">
+                                                <input type="text" name="email_address" class="form-control" value="<?php echo $row[11]; ?>">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Profile Photo</label>
                                             <div class="form-group">
-                                                <input type="file" class="form-control-file" name="profilePhoto" value="<?php echo $row[8]; ?>">
+                                                <input type="file" class="form-control-file" name="profile_picture" value="<?php echo $row[7]; ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -167,21 +171,18 @@ if (!isset($_SESSION['user_id'])) {
                         </div>
                     </div>
                 </div>
+            </section><!-- /.content -->
         </div>
-        </section><!-- /.content -->
+        <footer class="main-footer">
+            <strong>Copyright &copy; 2021-2022 <a href="http://localhost/loan-management/">NMSCST Loan Management System</a>.</strong>
+            All rights reserved.
+            <div class="float-right d-none d-sm-inline-block">
+                <b>Capstone Project</b> 2022
+            </div>
+        </footer>
     </div>
-
-    <footer class="main-footer">
-        <strong>Copyright &copy; 2021-2022 <a href="http://localhost/loan-management/">NMSCST Loan Management System</a>.</strong>
-        All rights reserved.
-        <div class="float-right d-none d-sm-inline-block">
-            <b>Capstone Project</b> 2022
-        </div>
-    </footer>
-    </div>
-    </div><!-- /.wrapper -->
-
-    <?php include_once('../includes/links-footer.php'); ?>
+    <?php include_once('../../assets/includes/links-footer.php'); ?>
+	<script src="../../assets/js/themeswitch.js"></script>
     <?php unset($_SESSION["status"]); ?>
 </body>
 

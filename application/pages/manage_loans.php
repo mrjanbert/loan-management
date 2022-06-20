@@ -1,3 +1,9 @@
+<?php
+	if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
+	header('location: http://localhost/loan-management/application/pages/error-pages/403-error.php');
+	exit();
+	};
+?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
 	<div class="container-fluid">
@@ -23,10 +29,12 @@
 				<div class="card">
 					<div class="card-header">
 						<h3 class="card-title">Loans History</h3>
-						<button class="btn btn-success btn-xs" style="margin-left: 74%" data-toggle="modal" data-target="#addloan">
-							<i class="fa fa-plus"></i> &nbsp;
-							Apply New Loan
-						</button>
+                        <div class="d-flex justify-content-end">
+							<button class="btn btn-success btn-xs"data-toggle="modal" data-target="#addloan">
+								<i class="fa fa-plus"></i> &nbsp;
+								Apply New Loan
+							</button>
+						</div>
 					</div><!-- /.card-header -->
 					<div class="card-body">
 						<table id="example1" class="table table-bordered table-striped">

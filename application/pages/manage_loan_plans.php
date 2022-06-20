@@ -1,3 +1,9 @@
+<?php
+	if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
+	header('location: http://localhost/loan-management/application/pages/error-pages/403-error.php');
+	exit();
+	};
+?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
@@ -85,7 +91,8 @@
                                 $query = "SELECT * FROM loan_plans";
                                 $results = $conn->query($query);
                                 ?>
-                                <?php while ($row = $results->fetch_row()) : ?>
+                                <?php while ($row = $results->fetch_row()) : $plan_id = $row[0]; ?>
+                                    
                                     <tr>
                                         <td class="text-center align-middle"><?php echo $row[0]; ?></td>
                                         <td class="">
@@ -95,7 +102,7 @@
                                         </td>
                                         <td class="text-center align-middle">
                                             <button class="btn btn-sm btn-primary my-1 edit_plan" type="button" data-id="" data-months="" data-interest_percentage="">Edit</button>
-                                            <button class="btn btn-sm btn-danger" type="button" data-id="">Delete</button>
+                                            <a href="../../code.php?plan_id=<?php echo $plan_id; ?>" onclick="return confirm('Delete this Plan?');" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 <?php endwhile; ?>

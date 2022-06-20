@@ -22,12 +22,13 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables-buttons/2.2.3/js/buttons.colVis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bs-custom-file-input/1.3.4/bs-custom-file-input.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
-<script src="../../assets/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <!-- AdminLTE App -->
 <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
 
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
 
 <!-- Page specific script -->
 <script>
@@ -36,6 +37,16 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
       "responsive": true,
       "lengthChange": false,
       "autoWidth": false,
+      "buttons": [""]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": false,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": false,
+      "info": false,
+      "autoWidth": false,
+      "responsive": true,
       "buttons": [""]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
   });
@@ -57,48 +68,12 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
     placeholder: 'Select a loan type',
     width:"100%"
   });
-</script>
-
-
-<!-- script for switch theme -->
-<script>
-  var toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
-  var currentTheme = localStorage.getItem('theme');
-  var mainHeader = document.querySelector('.main-header');
-
-  if (currentTheme) {
-    if (currentTheme === 'dark') {
-      if (!document.body.classList.contains('dark-mode')) {
-        document.body.classList.add("dark-mode");
-      }
-      if (mainHeader.classList.contains('navbar-light')) {
-        mainHeader.classList.add('navbar-dark');
-        mainHeader.classList.remove('navbar-light');
-      }
-      toggleSwitch.checked = true;
-    }
-  }
-
-  function switchTheme(e) {
-    if (e.target.checked) {
-      if (!document.body.classList.contains('dark-mode')) {
-        document.body.classList.add("dark-mode");
-      }
-      if (mainHeader.classList.contains('navbar-light')) {
-        mainHeader.classList.add('navbar-dark');
-        mainHeader.classList.remove('navbar-light');
-      }
-      localStorage.setItem('theme', 'dark');
-    } else {
-      if (document.body.classList.contains('dark-mode')) {
-        document.body.classList.remove("dark-mode");
-      }
-      if (mainHeader.classList.contains('navbar-dark')) {
-        mainHeader.classList.add('navbar-light');
-        mainHeader.classList.remove('navbar-dark');
-      }
-      localStorage.setItem('theme', 'light');
-    }
-  }
-  toggleSwitch.addEventListener('change', switchTheme, false);
+  $('.selectuser').select2({
+    placeholder: 'Select a user',
+    width:"100%"
+  });
+  $('.selectuserrole').select2({
+    placeholder: 'Select a role',
+    width:"100%"
+  });
 </script>
