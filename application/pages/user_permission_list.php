@@ -61,7 +61,7 @@
                                     <td><?php echo $name; ?> </td>
                                     <td>
                                         <a href="home.php?page=user_permission_view&accountNumber=<?php echo $accountNumber ?>" class="btn btn-success btn-xs"><i class="fa fa-eye"></i></a>
-                                        <a href="permission_update.php?page=user_permission_list&accountNumber=<?php echo $accountNumber ?>" class="btn btn-primary btn-xs my-1"><i class="fa fa-edit"></i></a>
+                                        <a href="user_permission_update.php?accountNumber=<?php echo $accountNumber ?>" class="btn btn-primary btn-xs my-1"><i class="fa fa-edit"></i></a>
                                         <a href="../../code.php?accountNumber=<?php echo $accountNumber ?>" onclick="return confirm('Delete this permission?');" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>

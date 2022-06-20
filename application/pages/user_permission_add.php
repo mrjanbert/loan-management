@@ -183,6 +183,22 @@
 									</tr>
 									<tr>
 										<td class="text-center">8</td>
+										<td>User List <input type="hidden" name="user_list" value="User List" /></td>
+										<td>
+											<div align="center"><input name="user_list_create" type="checkbox" value="On"></div>
+										</td>
+										<td>
+											<div align="center"><input name="user_list_read" type="checkbox" value="On"></div>
+										</td>
+										<td>
+											<div align="center"><input name="user_list_update" type="checkbox" value="On"></div>
+										</td>
+										<td>
+											<div align="center"><input name="user_list_delete" type="checkbox" value="On"></div>
+										</td>
+									</tr>
+									<tr>
+										<td class="text-center">9</td>
 										<td>User Management <input type="hidden" name="user_management" value="User Management" /></td>
 										<td>
 											<div align="center"><input name="user_management_create" type="checkbox" value="On"></div>

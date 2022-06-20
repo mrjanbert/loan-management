@@ -154,6 +154,23 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
                 <?php echo ($mod_read == 1) ? '<li class="nav-item"><a href="home.php?page=borrower_list&accountNumber='. $_SESSION['accountNumber'] .'&&mid=' . base64_encode("borrower_list") . '" class="nav-link nav-borrower_list"><i class="fa-solid fa-users fa-lg mr-2"></i><p>Borrowers</p></a></li>' : ''; ?>
                 <?php } ?>
 
+                <!--USER LIST LINK -->
+                <?php
+                    if (isset($_GET['mid']) && (trim($_GET['mid']) == base64_encode("user_list"))) {
+                        $check = mysqli_query($conn, "SELECT * FROM module_permission WHERE accountNumber = '" . $_SESSION['accountNumber'] . "' AND mod_name = 'User List'");
+                        $get_check = mysqli_fetch_array($check);
+                        $mod_read = $get_check['mod_read'];
+                ?>
+                <?php echo ($mod_read == 1) ? '<li class="nav-item"><a href="home.php?page=user_list&accountNumber='. $_SESSION['accountNumber'] .'&&mid=' . base64_encode("user_list") . '" class="nav-link nav-user_list"><i class="fa-solid fa-users fa-lg mr-2"></i><p>User List</p></a></li>' : ''; ?>
+                <?php
+                    } else {
+                        $check = mysqli_query($conn, "SELECT * FROM module_permission WHERE accountNumber = '" . $_SESSION['accountNumber'] . "' AND mod_name = 'User List'");
+                        $get_check = mysqli_fetch_array($check);
+                        $mod_read = $get_check['mod_read'];
+                    ?>
+                <?php echo ($mod_read == 1) ? '<li class="nav-item"><a href="home.php?page=user_list&accountNumber='. $_SESSION['accountNumber'] .'&&mid=' . base64_encode("user_list") . '" class="nav-link nav-user_list"><i class="fa-solid fa-users fa-lg mr-2"></i><p>User List</p></a></li>' : ''; ?>
+                <?php } ?>
+
                 <!-- USER MANAGEMENT LINK -->
                 <?php
                 if (isset($_GET['mid']) && (trim($_GET['mid']) == base64_encode("user_management"))) {

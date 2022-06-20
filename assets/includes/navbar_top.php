@@ -20,7 +20,7 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
 	<!-- Right navbar links -->
 	<ul class="navbar-nav ml-auto">
 		<!-- Philippine Standard Time -->
-		<!-- <li class="nav-item">
+		<li class="nav-item">
 			<div class="ph-time pt-2" style="font-family: 'Courier Prime', monospace;"></div>
 		</li>
 
@@ -40,7 +40,7 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
 					format: otherFormat
 				});
 			}
-		</script> -->
+		</script>
 
 		<li class="nav-item">
 			<div class="theme-switch-wrapper nav-link">

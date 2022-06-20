@@ -78,8 +78,8 @@
                                             <p>Description: <b><?php echo $row[2]; ?></b></p>
                                         </td>
                                         <td class="text-center align-middle">
-                                            <button class="btn btn-sm btn-primary my-1 edit_plan" type="button" data-id="" data-months="" data-interest_percentage="">Edit</button>
-                                            <button class="btn btn-sm btn-danger delete_plan" type="button">Delete</button>
+                                            <button class="btn btn-sm btn-primary my-1 edit_plan" type="button"><i class="fa-solid fa-pen-to-square"></i></button>
+                                            <button class="btn btn-sm btn-danger delete_plan" type="button"><i class="fa-solid fa-trash"></i></button>
                                         </td>
                                     </tr>
                                 <?php endwhile; ?>

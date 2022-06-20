@@ -101,7 +101,7 @@
                                             <p>Mode of Payment: <b><?php echo $row[3]; ?></b></p>
                                         </td>
                                         <td class="text-center align-middle">
-                                            <button class="btn btn-sm btn-primary my-1 edit_plan" type="button" data-id="" data-months="" data-interest_percentage="">Edit</button>
+                                            <button class="btn btn-sm btn-primary my-1 edit_plan" type="button"><i class="fa-solid fa-pen-to-square"></i></button>
                                             <a href="../../code.php?plan_id=<?php echo $plan_id; ?>" onclick="return confirm('Delete this Plan?');" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>

@@ -149,13 +149,14 @@ if (isset($_POST['login_btn'])) {
 		$_SESSION['accountNumber'] = $data['accountNumber'];
 		$_SESSION['email'] = $email;
         $_SESSION["status"] = "<div class=\"preloader flex-column justify-content-center align-items-center\">
-        <img class=\"animation__shake\" src=\"../../assets/img/logo.png\" height=\"200\" width=\"200\"></div>";
+        <img class=\"animation__wobble\" src=\"../../assets/img/logo.png\" height=\"200\" width=\"200\"></div>";
 		header('location: application/pages/home.php?page=dashboard&accountNumber='.$_SESSION['accountNumber']);
 	} else {
         $_SESSION["status"] = "<script>$(function(){toastr.error('Invalid username or password! Please try again.')});</script>";
         header('location: index.php');
     }
 }
+
 
 if (isset($_POST['login_borrower_btn'])) {
 	$email_address = $_POST['email_address'];
@@ -172,7 +173,7 @@ if (isset($_POST['login_borrower_btn'])) {
 		$_SESSION['account_number'] = $data['account_number'];
 		$_SESSION['email_address'] = $email_address;
         $_SESSION["status"] = "<div class=\"preloader flex-column justify-content-center align-items-center\">
-        <img class=\"animation__wobble\" src=\"../../../resources/Images/logo.png\" height=\"200\" width=\"200\"></div>";
+        <img class=\"animation__wobble\" src=\"../../../assets/img/logo.png\" height=\"200\" width=\"200\"></div>";
 		header('location: application/pages/borrowers/home.php?page=dashboard&account_number='.$_SESSION['account_number']);
 	} else {
         $_SESSION["status"] = "<script>$(function(){toastr.error('Invalid username! Please try again.')});</script>";
@@ -193,11 +194,9 @@ if (isset($_POST['addplan_btn'])) {
         ";
     $results = $conn->query($query);    
     if ($conn->affected_rows > 0) :
-        $_SESSION["status"] = "<script>$(function(){toastr.success('Added successfully.')});</script>";
-        header('location: application/pages/home.php?page=manage_loan_plans');
+        header('location: application/pages/home.php?page=manage_loan_plans&accountNumber='.$_SESSION['accountNumber']);
     else :
-        $_SESSION["status"] = "<script>$(function(){toastr.danger('Plan not added.')});</script>";
-        header('location: application/pages/home.php?page=manage_loan_plans');
+        header('location: application/pages/home.php?page=manage_loan_plans&accountNumber='.$_SESSION['accountNumber']);
     endif;
 }
 
@@ -213,11 +212,9 @@ if (isset($_POST['addloantype_btn'])) {
         ";
     $results = $conn->query($query);    
     if ($conn->affected_rows > 0) :
-        $_SESSION["status"] = "<script>$(function(){toastr.success('Added successfully.')});</script>";
-        header('location: application/pages/home.php?page=manage_loan_types');
+        header('location: application/pages/home.php?page=manage_loan_types&accountNumber='.$_SESSION['accountNumber']);
     else :
-        $_SESSION["status"] = "<script>$(function(){toastr.danger('Loan Type not added.')});</script>";
-        header('location: application/pages/home.php?page=manage_loan_types');
+        header('location: application/pages/home.php?page=manage_loan_types&accountNumber='.$_SESSION['accountNumber']);
     endif;
 }
 
@@ -232,12 +229,10 @@ if (isset($_POST['addcharges_btn'])) {
         ";
     $results = $conn->query($query);    
     if ($conn->affected_rows > 0) :
-        $_SESSION["status"] = "<script>$(function(){toastr.success('Added successfully.')});</script>";
-        header('location: application/pages/home.php?page=manage_charges_list');
+        header('location: application/pages/home.php?page=manage_charges_list&accountNumber='.$_SESSION['accountNumber']);
         exit();
     else :
-        $_SESSION["status"] = "<script>$(function(){toastr.danger('Charges not added.')});</script>";
-        header('location: application/pages/home.php?page=manage_charges_list');
+        header('location: application/pages/home.php?page=manage_charges_list&accountNumber='.$_SESSION['accountNumber']);
     endif;
 }
  
@@ -246,7 +241,7 @@ if (isset($_POST['save_module'])) {
 
     $verify = mysqli_query($conn, "SELECT * FROM module_permission WHERE accountNumber = '$selecteduser'");
     $get_verify = mysqli_num_rows($verify);
-    if ($get_verify == 8) {
+    if ($get_verify == 9) {
         echo "<script>alert('Error: Permission Already granted. Please visit permission list to see!!'); </script>";
     } else {
         //Starting of first module
@@ -318,22 +313,32 @@ if (isset($_POST['save_module'])) {
 
         $insert = mysqli_query($conn, "INSERT INTO module_permission VALUES('','$selecteduser','$module7','$pcreate7','$pread7','$pupdate7','$pdelete7')");
         //End of seventh module
-
+        
         //Starting of eighth module
-        $module8 = mysqli_real_escape_string($conn, $_POST['user_management']);
-        $pcreate8 = (isset($_POST['user_management_create'])) ? 1 : 0;
-        $pread8 = (isset($_POST['user_management_read'])) ? 1 : 0;
-        $pupdate8 = (isset($_POST['user_management_update'])) ? 1 : 0;
-        $pdelete8 = (isset($_POST['user_management_delete'])) ? 1 : 0;
+        $module8 = mysqli_real_escape_string($conn, $_POST['user_list']);
+        $pcreate8 = (isset($_POST['user_list_create'])) ? 1 : 0;
+        $pread8 = (isset($_POST['user_list_read'])) ? 1 : 0;
+        $pupdate8 = (isset($_POST['user_list_update'])) ? 1 : 0;
+        $pdelete8 = (isset($_POST['user_list_delete'])) ? 1 : 0;
 
         $insert = mysqli_query($conn, "INSERT INTO module_permission VALUES('','$selecteduser','$module8','$pcreate8','$pread8','$pupdate8','$pdelete8')");
         //End of eighth module
+
+        //Starting of ninth module
+        $module9 = mysqli_real_escape_string($conn, $_POST['user_management']);
+        $pcreate9 = (isset($_POST['user_management_create'])) ? 1 : 0;
+        $pread9 = (isset($_POST['user_management_read'])) ? 1 : 0;
+        $pupdate9 = (isset($_POST['user_management_update'])) ? 1 : 0;
+        $pdelete9 = (isset($_POST['user_management_delete'])) ? 1 : 0;
+
+        $insert = mysqli_query($conn, "INSERT INTO module_permission VALUES('','$selecteduser','$module9','$pcreate9','$pread9','$pupdate9','$pdelete9')");
+        //End of ninth module
 
         if (!$insert) {
             echo "<script>alert('Record not inserted.....Please try again later!'); </script>";
         } else {
             echo "<script>alert('Permission Added Successfully!!'); </script>";
-            header('location: application/pages/home.php?page=user_permission_list');
+            header('location: application/pages/home.php?page=user_permission_list&accountNumber='.$_SESSION['accountNumber']);
         }
     }
 }
@@ -356,8 +361,7 @@ if (isset($_POST['edit_permission'])) {
         if (!$update) {
             echo "<script>alert('Record not update.....Please try again later!'); </script>";
         } else {
-            $_SESSION["status"] = "<script>$(function(){toastr.success('Permission updated.')});</script>";
-            header('location: application/pages/home.php?page=user_permission_list');
+            header('location: application/pages/home.php?page=user_permission_list&accountNumber='.$_SESSION['accountNumber']);
         }
     }
 }
@@ -367,8 +371,7 @@ if (isset($_POST['edit_permission'])) {
 if (isset($_GET['accountNumber'])) {
     $accountNumber = $_GET['accountNumber'];
     $result = mysqli_query($conn, "DELETE FROM module_permission WHERE accountNumber ='$accountNumber'");
-    $_SESSION["status"] = "<script>$(function(){toastr.success('Permission deleted.')});</script>";
-    header('location: application/pages/home.php?page=user_permission_list');
+    header('location: application/pages/home.php?page=user_permission_list&accountNumber='.$_SESSION['accountNumber']);
 }
 
 ?>

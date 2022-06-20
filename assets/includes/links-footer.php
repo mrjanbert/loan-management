@@ -46,9 +46,8 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
       "ordering": false,
       "info": false,
       "autoWidth": false,
-      "responsive": true,
-      "buttons": [""]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+      "responsive": true
+    });
   });
   $(function() {
     $('[data-toggle="tooltip"]').tooltip()

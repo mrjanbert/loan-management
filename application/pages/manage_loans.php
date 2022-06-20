@@ -70,26 +70,6 @@
 										</button>
 									</td>
 								</tr>
-								<tr>
-									<td>123</td>
-									<td>Loan</td>
-									<td>Salary Deduction</td>
-									<td><b style="color: blue">300,000.00</b></td>
-									<td>3 Yrs</td>
-									<td>Renovation</td>
-									<td>
-										<button type="button" class="btn btn-warning btn-xs">Disapproved</button>
-									</td>
-									<td>
-										<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editloan">
-											<i class="fa fa-edit"></i>
-										</button>
-										<button class="btn btn-success btn-xs my-1">
-											<i class="fa fa-print"></i>
-										</button>
-									</td>
-								</tr>
-
 							</tbody>
 						</table>
 					</div><!-- /.card-body -->
