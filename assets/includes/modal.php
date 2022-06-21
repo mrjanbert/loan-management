@@ -193,11 +193,90 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
     </div><!-- /.modal-dialog -->
 </div>
 
-<div class="modal fade" id="view_user">
+<div class="modal fade" id="view_user_profile">
     <div class="modal-dialog modal-md">
         <?php
-        include_once('../../config/database.php');
-        $accountNumber = $_GET['accountNumber'];
+        $query = "SELECT * FROM tbl_users WHERE accountNumber = $accountNumber";
+        $results = $conn->query($query);
+        ?>
+        <?php while ($row = $results->fetch_row()) : ?>
+            <form action="">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Information of <?php echo $row[2] . ' ' . $row[4]; ?> </h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12 d-flex justify-content-center mb-4">
+                                <div class="image">
+                                    <img src="../../assets/img/uploads/profile-janbert.jpg" class="img-square elevation-3" alt="User Image" style="max-width: 200px; height: 200px;">
+                                </div>
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <div class="form-group">
+                                    <label>Account Number:</label>
+                                    <p><?php echo $row[1]; ?> </p>
+                                </div>
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <div class="form-group">
+                                    <label>Full Name:</label>
+                                    <p><?php echo $row[2] . ' ' . $row[3] . ' ' . $row[4]; ?> </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <div class="form-group">
+                                    <label>Age:</label>
+                                    <p><?php echo $row[6]; ?> </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <div class="form-group">
+                                    <label>Birth Date:</label>
+                                    <p><?php echo $row[7]; ?> </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <div class="form-group">
+                                    <label>Contact Number:</label>
+                                    <p><?php echo $row[9]; ?> </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <div class="form-group">
+                                    <label>Email:</label>
+                                    <p class="text-primary"><?php echo $row[11]; ?> </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <div class="form-group">
+                                    <label>Address:</label>
+                                    <p><?php echo $row[5]; ?> </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <div class="form-group">
+                                    <label>Date Registered:</label>
+                                    <p><?php echo $row[10]; ?> </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-end">
+                        <a href='#' class="btn btn-primary">Edit</a>
+                    </div>
+                </div>
+            </form><!-- /.modal-content -->
+        <?php endwhile; ?>
+    </div><!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="view_user_profile">
+    <div class="modal-dialog modal-md">
+        <?php
         $query = "SELECT * FROM tbl_users WHERE accountNumber = $accountNumber";
         $results = $conn->query($query);
         ?>

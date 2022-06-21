@@ -95,11 +95,10 @@
               </thead>
               <tbody>
                 <?php
-                include_once('../../config/database.php');
                 $query = "SELECT * FROM tbl_charges";
                 $results = $conn->query($query);
                 ?>
-                <?php while ($row = $results->fetch_row()) : ?>
+                <?php while ($row = $results->fetch_row()) { ?>
                   <tr>
                     <td class="text-center align-middle"><?php echo $row[0]; ?></td>
                     <td class="">
@@ -107,9 +106,9 @@
                       <p></p>Percentage: <b><?php echo $row[2]; ?></b> %</p>
                     </td>
                     <td class="text-center align-middle">
-                      <button class="btn btn-sm btn-danger delete_plan" type="button" onclick="return confirm('Confirm delete?');" data-id="">Delete</button>
+                      <a href="../../code.php?deletecharges_id=<?php echo $row[0];?>" class="btn btn-sm btn-danger" onclick="return confirm('Confirm delete?');"><i class="fa-solid fa-trash-can"></i></a>
                     </td>
-                  <?php endwhile; ?>
+                  <?php } ?>
                   </tr>
               </tbody>
             </table>

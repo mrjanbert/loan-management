@@ -365,13 +365,49 @@ if (isset($_POST['edit_permission'])) {
         }
     }
 }
+// Delete borrower
+if (isset($_GET['deleteborrower_id'])) {
+    $deleteborrower_id = $_GET['deleteborrower_id'];
+    $result = mysqli_query($conn, "DELETE FROM tbl_borrowers WHERE borrower_id ='$deleteborrower_id'");
+    header('location: application/pages/home.php?page=borrower_list&accountNumber='.$_SESSION['accountNumber']);
+}
 
+// Delete user
+if (isset($_GET['deleteuser_id'])) {
+    $deleteuser_id = $_GET['deleteuser_id'];
+    $result = mysqli_query($conn, "DELETE FROM tbl_users WHERE user_id ='$deleteuser_id'");
+    header('location: application/pages/home.php?page=user_list&accountNumber='.$_SESSION['accountNumber']);
+}
 
 // Delete permission
-if (isset($_GET['accountNumber'])) {
-    $accountNumber = $_GET['accountNumber'];
+if (isset($_GET['permission_id'])) {
+    $accountNumber = $_GET['permission_id'];
     $result = mysqli_query($conn, "DELETE FROM module_permission WHERE accountNumber ='$accountNumber'");
     header('location: application/pages/home.php?page=user_permission_list&accountNumber='.$_SESSION['accountNumber']);
 }
 
+// Delete Charges
+if(isset($_GET['deletecharges_id'])){
+    $charges_id = $_GET['deletecharges_id'];
+    $result = mysqli_query($conn, "DELETE FROM tbl_charges WHERE charges_id='$charges_id'");
+    header('location: application/pages/home.php?page=manage_charges_list&accountNumber='.$_SESSION['accountNumber']);
+}
+
+// Delete Loan Types
+if(isset($_GET['deleteloantype_id'])){
+    $loantype_id = $_GET['deleteloantype_id'];
+    $result = mysqli_query($conn, "DELETE FROM loan_types WHERE loantype_id ='$loantype_id'");
+    header('location: application/pages/home.php?page=manage_loan_types&accountNumber='.$_SESSION['accountNumber']);
+}
+
+// Delete Loan Plans
+if(isset($_GET['deleteplan_id'])){
+    $plan_id = $_GET['deleteplan_id'];
+    $result = mysqli_query($conn, "DELETE FROM loan_plans WHERE plan_id ='$plan_id'");
+    header('location: application/pages/home.php?page=manage_loan_plans&accountNumber='.$_SESSION['accountNumber']);
+}
+
+
+    
 ?>
+

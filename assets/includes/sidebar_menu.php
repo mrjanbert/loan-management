@@ -19,8 +19,8 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
                 <img src="../../assets/img/uploads/profile-janbert.jpg" class="img-circle elevation-3" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="text-white h5" data-toggle="modal" value=<?php echo $accountNumber; ?> data-target="#view_user"><?php echo $firstName . ' ' . $lastName; ?> <i class="fa-solid fa-circle text-success fa-2xs ml-2"></i></a>
-                <p class="d-block text-primary" readonly><small><?php echo $email ?></small></p>
+                <a href="#" class="text-white h5" data-toggle="modal" data-target="#view_user_profile"><?php echo $firstName . ' ' . $lastName; ?> <i class="fa-solid fa-circle text-success fa-2xs ml-2"></i></a>
+                <address class="d-block text-primary"><small><?php echo $email ?></small></address>
             </div>
         </div>
 
@@ -93,14 +93,14 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
                         $get_check = mysqli_fetch_array($check);
                         $mod_read = $get_check['mod_read'];
                 ?>
-                <?php echo ($mod_read == 1) ? '<li class="nav-item"><a href="home.php?page=manage_loan_plans&accountNumber='. $_SESSION['accountNumber'] .'&&mid=' . base64_encode("loan_plans") . '" class="nav-link nav-manage_loan_plans"><i class="fa-solid fa-pen-to-square fa-lg mr-2"></i><p>Loan Plans</p></a></li>' : ''; ?>
+                <?php echo ($mod_read == 1) ? '<li class="nav-item"><a href="home.php?page=manage_loan_plans&accountNumber='. $_SESSION['accountNumber'] .'&&mid=' . base64_encode("loan_plans") . '" class="nav-link nav-manage_loan_plans"><i class="fa-solid fa-list fa-lg mr-2"></i></i><p>Loan Plans</p></a></li>' : ''; ?>
                 <?php
                     } else {
                         $check = mysqli_query($conn, "SELECT * FROM module_permission WHERE accountNumber = '" . $_SESSION['accountNumber'] . "' AND mod_name = 'Loan Plans'");
                         $get_check = mysqli_fetch_array($check);
                         $mod_read = $get_check['mod_read'];
                     ?>
-                <?php echo ($mod_read == 1) ? '<li class="nav-item"><a href="home.php?page=manage_loan_plans&accountNumber='. $_SESSION['accountNumber'] .'&&mid=' . base64_encode("loan_plans") . '" class="nav-link nav-manage_loan_plans"><i class="fa-solid fa-pen-to-square fa-lg mr-2"></i><p>Loan Plans</p></a></li>' : ''; ?>
+                <?php echo ($mod_read == 1) ? '<li class="nav-item"><a href="home.php?page=manage_loan_plans&accountNumber='. $_SESSION['accountNumber'] .'&&mid=' . base64_encode("loan_plans") . '" class="nav-link nav-manage_loan_plans"><i class="fa-solid fa-list fa-lg mr-2"></i></i><p>Loan Plans</p></a></li>' : ''; ?>
                 <?php } ?>
 
                 <!-- LOAN TYPES LINK -->
@@ -110,14 +110,14 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
                         $get_check = mysqli_fetch_array($check);
                         $mod_read = $get_check['mod_read'];
                 ?>
-                <?php echo ($mod_read == 1) ? '<li class="nav-item"><a href="home.php?page=manage_loan_types&accountNumber='. $_SESSION['accountNumber'] .'&&mid=' . base64_encode("loan_types") . '" class="nav-link nav-manage_loan_types"><i class="fa-solid fa-pen-to-square fa-lg mr-2"></i><p>Loan Types</p></a></li>' : ''; ?>
+                <?php echo ($mod_read == 1) ? '<li class="nav-item"><a href="home.php?page=manage_loan_types&accountNumber='. $_SESSION['accountNumber'] .'&&mid=' . base64_encode("loan_types") . '" class="nav-link nav-manage_loan_types"><i class="fa-solid fa-list-ul fa-lg mr-2"></i></i><p>Loan Types</p></a></li>' : ''; ?>
                 <?php
                     } else {
                         $check = mysqli_query($conn, "SELECT * FROM module_permission WHERE accountNumber = '" . $_SESSION['accountNumber'] . "' AND mod_name = 'Loan Types'");
                         $get_check = mysqli_fetch_array($check);
                         $mod_read = $get_check['mod_read'];
                     ?>
-                <?php echo ($mod_read == 1) ? '<li class="nav-item"><a href="home.php?page=manage_loan_types&accountNumber='. $_SESSION['accountNumber'] .'&&mid=' . base64_encode("loan_types") . '" class="nav-link nav-manage_loan_types"><i class="fa-solid fa-pen-to-square fa-lg mr-2"></i><p>Loan Types</p></a></li>' : ''; ?>
+                <?php echo ($mod_read == 1) ? '<li class="nav-item"><a href="home.php?page=manage_loan_types&accountNumber='. $_SESSION['accountNumber'] .'&&mid=' . base64_encode("loan_types") . '" class="nav-link nav-manage_loan_types"><i class="fa-solid fa-list-ul fa-lg mr-2"></i></i><p>Loan Types</p></a></li>' : ''; ?>
                 <?php } ?>
 
                 <!-- CHARGES LINK -->
@@ -144,14 +144,14 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
                         $get_check = mysqli_fetch_array($check);
                         $mod_read = $get_check['mod_read'];
                 ?>
-                <?php echo ($mod_read == 1) ? '<li class="nav-item"><a href="home.php?page=borrower_list&accountNumber='. $_SESSION['accountNumber'] .'&&mid=' . base64_encode("borrower_list") . '" class="nav-link nav-borrower_list"><i class="fa-solid fa-users fa-lg mr-2"></i><p>Borrowers</p></a></li>' : ''; ?>
+                <?php echo ($mod_read == 1) ? '<li class="nav-item"><a href="home.php?page=borrower_list&accountNumber='. $_SESSION['accountNumber'] .'&&mid=' . base64_encode("borrower_list") . '" class="nav-link nav-borrower_list"><i class="fa-solid fa-user-group fa-lg mr-2"></i><p>Borrowers</p></a></li>' : ''; ?>
                 <?php
                     } else {
                         $check = mysqli_query($conn, "SELECT * FROM module_permission WHERE accountNumber = '" . $_SESSION['accountNumber'] . "' AND mod_name = 'Borrowers'");
                         $get_check = mysqli_fetch_array($check);
                         $mod_read = $get_check['mod_read'];
                     ?>
-                <?php echo ($mod_read == 1) ? '<li class="nav-item"><a href="home.php?page=borrower_list&accountNumber='. $_SESSION['accountNumber'] .'&&mid=' . base64_encode("borrower_list") . '" class="nav-link nav-borrower_list"><i class="fa-solid fa-users fa-lg mr-2"></i><p>Borrowers</p></a></li>' : ''; ?>
+                <?php echo ($mod_read == 1) ? '<li class="nav-item"><a href="home.php?page=borrower_list&accountNumber='. $_SESSION['accountNumber'] .'&&mid=' . base64_encode("borrower_list") . '" class="nav-link nav-borrower_list"><i class="fa-solid fa-user-group fa-lg mr-2"></i><p>Borrowers</p></a></li>' : ''; ?>
                 <?php } ?>
 
                 <!--USER LIST LINK -->
@@ -179,7 +179,7 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
                     $mod_create = $get_check['mod_create'];
                     $mod_read = $get_check['mod_read'];
                 ?>
-                    <?php echo ($mod_create == 1) ? '<li class="nav-item nav-user_permission_add nav-user_permission_list"><a href="#" class="nav-link nav-user_permission_add nav-user_permission_list"><i class="nav-icon fa-solid fa-user-group fa-lg mr-2"></i><p>User Management<i class="fas fa-angle-left right"></i></p></a><ul class="nav nav-treeview">' : ''; ?>
+                    <?php echo ($mod_create == 1) ? '<li class="nav-item nav-user_permission_add nav-user_permission_list"><a href="#" class="nav-link nav-user_permission_add nav-user_permission_list"><i class="fa-solid fa-users-gear fa-lg mr-2"></i></i><p>User Management<i class="fas fa-angle-left right"></i></p></a><ul class="nav nav-treeview">' : ''; ?>
                     <?php echo ($mod_read == 1) ? '<li class="nav-item"><a href="home.php?page=user_permission_list&accountNumber=' . $_SESSION['accountNumber'] . '&&mid=' . base64_encode("user_management") . '"  class="nav-link nav-user_permission_list"><i class="nav-icon fa-solid fa-file fa-lg mr-2"></i><p>Module Permission List</p></a></li>' : ''; ?>
                     <?php echo ($mod_create == 1) ? '<li class="nav-item"><a href="home.php?page=user_permission_add&accountNumber=' . $_SESSION['accountNumber'] . '&&mid=' . base64_encode("user_management") . '"  class="nav-link nav-user_permission_add"><i class="nav-icon fa-solid fa-file-circle-plus fa-lg mr-2"></i><p>Add Permission</p></a></li>' : ''; ?>
                     <?php echo ($mod_create == 1) ? '</ul></li>' : ''; ?>
@@ -190,7 +190,7 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
                     $mod_create = $get_check['mod_create'];
                     $mod_read = $get_check['mod_read'];
                 ?>
-                    <?php echo ($mod_create == 1) ? '<li class="nav-item nav-user_permission_add nav-user_permission_list"><a href="#" class="nav-link nav-user_permission_add nav-user_permission_list"><i class="nav-icon fa-solid fa-user-group fa-lg mr-2"></i><p>User Management<i class="fas fa-angle-left right"></i></p></a><ul class="nav nav-treeview">' : ''; ?>
+                    <?php echo ($mod_create == 1) ? '<li class="nav-item nav-user_permission_add nav-user_permission_list"><a href="#" class="nav-link nav-user_permission_add nav-user_permission_list"><i class="fa-solid fa-users-gear fa-lg mr-2"></i></i><p>User Management<i class="fas fa-angle-left right"></i></p></a><ul class="nav nav-treeview">' : ''; ?>
                     <?php echo ($mod_read == 1) ? '<li class="nav-item"><a href="home.php?page=user_permission_list&accountNumber=' . $_SESSION['accountNumber'] . '&&mid=' . base64_encode("user_management") . '"  class="nav-link nav-user_permission_list"><i class="nav-icon fa-solid fa-file fa-lg mr-2"></i><p>Module Permission List</p></a></li>' : ''; ?>
                     <?php echo ($mod_create == 1) ? '<li class="nav-item"><a href="home.php?page=user_permission_add&accountNumber=' . $_SESSION['accountNumber'] . '&&mid=' . base64_encode("user_management") . '"  class="nav-link nav-user_permission_add"><i class="nav-icon fa-solid fa-file-circle-plus fa-lg mr-2"></i><p>Add Permission</p></a></li>' : ''; ?>
                     <?php echo ($mod_create == 1) ? '</ul></li>' : ''; ?>

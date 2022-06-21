@@ -69,9 +69,9 @@
                                     <td><?php echo $row[11];?></td>
                                     <td><?php echo $row[10];?></td>
                                     <td>
-                                        <a href="borrower_update.php?page=borrower_list&account_number=<?php echo $row[1];?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a>
-                                        <button class="btn btn-danger btn-xs my-1"><i class="fa fa-trash"></i></button>
                                         <button class="btn btn-info btn-xs" data-toggle="modal" value=<?php echo $row[1]; ?> data-target="#view_user"><i class="fa fa-eye"></i></button>
+                                        <a href="borrower_update.php?page=borrower_list&account_number=<?php echo $row[1];?>" class="btn btn-primary btn-xs my-1"><i class="fa fa-edit"></i></a>
+                                        <a href="../../code.php?deleteborrower_id=<?php echo $row[0]; ?>" onclick="return confirm('Are you sure you want to delete this user? This action cannot be undone.');" class="btn btn-danger btn-xs"><i class="fa-solid fa-trash-can"></i></a>
                                     </td>
                                 </tr>
                                 <?php endwhile; ?>  

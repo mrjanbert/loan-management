@@ -72,14 +72,14 @@
                                 ?>
                                 <?php while ($row = $results->fetch_row()) : ?>
                                     <tr>
-                                        <td class="text-center align-middle">1</td>
+                                        <td class="text-center align-middle"><?php echo $row[0]; ?></td>
                                         <td class="">
                                             <p>Type Name: <b><?php echo $row[1]; ?></b></p>
                                             <p>Description: <b><?php echo $row[2]; ?></b></p>
                                         </td>
                                         <td class="text-center align-middle">
                                             <button class="btn btn-sm btn-primary my-1 edit_plan" type="button"><i class="fa-solid fa-pen-to-square"></i></button>
-                                            <button class="btn btn-sm btn-danger delete_plan" type="button"><i class="fa-solid fa-trash"></i></button>
+                                            <a href="../../code.php?deleteloantype_id=<?php echo $row[0];?>" class="btn btn-sm btn-danger" onclick="return confirm('Confirm delete?');"><i class="fa-solid fa-trash-can"></i></i></a>
                                         </td>
                                     </tr>
                                 <?php endwhile; ?>
