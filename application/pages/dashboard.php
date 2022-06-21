@@ -43,7 +43,7 @@
 					<div class="icon">
 						<i class="fa fa-users"></i>
 					</div>
-					<a href="home.php?page=borrowers&accountNumber=<?php echo $accountNumber ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+					<a href="home.php?page=borrower_list&accountNumber=<?php echo $accountNumber ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 				</div> 
 			</div>
 			<!-- ./col -->

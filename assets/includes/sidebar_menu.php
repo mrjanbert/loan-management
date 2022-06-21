@@ -14,12 +14,12 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel d-flex my-1 ">
+        <div class="user-panel d-flex my-1">
             <div class="image d-flex align-items-center">
-                <img src="../../assets/img/profile.png" class="img-circle elevation-3" alt="User Image">
+                <img src="../../assets/img/uploads/profile-janbert.jpg" class="img-circle elevation-3" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="text-white h5"><?php echo $firstName . ' ' . $lastName; ?> <i class="fa-solid fa-circle text-success fa-2xs ml-2"></i></a>
+                <a href="#" class="text-white h5" data-toggle="modal" value=<?php echo $accountNumber; ?> data-target="#view_user"><?php echo $firstName . ' ' . $lastName; ?> <i class="fa-solid fa-circle text-success fa-2xs ml-2"></i></a>
                 <p class="d-block text-primary" readonly><small><?php echo $email ?></small></p>
             </div>
         </div>
