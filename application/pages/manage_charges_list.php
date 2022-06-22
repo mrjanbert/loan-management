@@ -1,8 +1,8 @@
 <?php
-	if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
-	header('location: http://localhost/loan-management/application/pages/error-pages/403-error.php');
-	exit();
-	};
+if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
+  header('location: http://localhost/loan-management/application/pages/error-pages/403-error.php');
+  exit();
+};
 ?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -50,7 +50,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <button class="btn btn-primary offset-md-3" type="submit" name="addcharges_btn" value="submit"> Save</button>
-                  <input type="button" class="btn btn-secondary" value="Cancel" onclick="history.go(0)"/>
+                  <input type="button" class="btn btn-secondary" value="Cancel" onclick="history.go(0)" />
                 </div>
               </div>
             </div>
@@ -106,10 +106,30 @@
                       <p></p>Percentage: <b><?php echo $row[2]; ?></b> %</p>
                     </td>
                     <td class="text-center align-middle">
-                      <a href="../../code.php?deletecharges_id=<?php echo $row[0];?>" class="btn btn-sm btn-danger" onclick="return confirm('Confirm delete?');"><i class="fa-solid fa-trash-can"></i></a>
+                      <a class="btn btn-sm btn-danger" onclick="deletecharge()"><i class="fa-solid fa-trash-can"></i></a>
                     </td>
-                  <?php } ?>
                   </tr>
+                  <script>
+                    function deletecharge() {
+                      Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          Swal.fire(
+                            'Deleting ...',
+                            window.location.href="../../code.php?deletecharges_id=<?php echo $row[0]; ?>" 
+                          )
+                        }
+                      })
+                    }
+                  </script>
+                <?php } ?>
               </tbody>
             </table>
           </div>

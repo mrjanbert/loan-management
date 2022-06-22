@@ -1,7 +1,17 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id'])) {
-	$_SESSION["status"] = "<script>$(function(){toastr.warning('You must login first.')});</script>";
+	$_SESSION['status']="<script>const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 5000
+      })
+  
+      Toast.fire({
+        icon: 'warning',
+        title: 'You must login first!'
+      })</script>";
 	header('location: ../../index.php');
 }
 ?>
@@ -16,6 +26,7 @@ if (!isset($_SESSION['user_id'])) {
 	<link rel="icon" type="image/x-icon" href="https://www.nmsc.edu.ph/application/themes/nmsc/favicon.ico">
 	<?php include_once('../../assets/includes/links-header.php'); ?>
 	<link rel="stylesheet" href="../../assets/css/themeswitch.css">	
+	<link rel="stylesheet" href="../../css/themeloader.css">	
 </head>
 
 <body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" id="switch-mode">

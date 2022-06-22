@@ -24,7 +24,6 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
 
 <!-- Alerts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.18/dist/sweetalert2.all.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <!-- AdminLTE App -->
 <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
@@ -60,22 +59,43 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
 <script>
   $('.selectborrower').select2({
     placeholder: 'Select a borrower',
-    width:"100%"
+    width: "100%"
   });
   $('.selectplan').select2({
     placeholder: 'Select a plan',
-    width:"100%"
+    width: "100%"
   });
   $('.selecttype').select2({
     placeholder: 'Select a loan type',
-    width:"100%"
+    width: "100%"
   });
   $('.selectuser').select2({
     placeholder: 'Select a user',
-    width:"100%"
+    width: "100%"
   });
   $('.selectuserrole').select2({
     placeholder: 'Select a role',
-    width:"100%"
+    width: "100%"
   });
+</script>
+
+<script>
+  function logout() {
+    Swal.fire({
+      title: 'Logout',
+      text: "Are you sure you want to logout?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Logout'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Logging out',
+          window.location.href = '../../logout.php'
+        )
+      }
+    })
+  }
 </script>

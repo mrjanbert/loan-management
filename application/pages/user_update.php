@@ -90,8 +90,8 @@ if (!isset($_SESSION['user_id'])) {
             </section>
 
             <?php
-            $account_number = $_GET['account_number'];
-            $query = "SELECT * FROM tbl_borrowers WHERE account_number = $account_number";
+            $accountNumber = $_GET['accountNumber'];
+            $query = "SELECT * FROM tbl_users WHERE accountNumber = $accountNumber";
             $results = $conn->query($query);
             $row = $results->fetch_row();
             ?>

@@ -1,8 +1,8 @@
 <?php
-	if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
-	header('location: http://localhost/loan-management/application/pages/error-pages/403-error.php');
-	exit();
-	};
+if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
+    header('location: http://localhost/loan-management/application/pages/error-pages/403-error.php');
+    exit();
+};
 ?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -54,27 +54,46 @@
                             </thead>
                             <tbody>
                                 <?php
-                                    require_once('../../config/database.php');
-                                    $query = "SELECT * FROM tbl_borrowers order by userCreated asc";
-                                    $results = $conn->query($query);
+                                $query = "SELECT * FROM tbl_borrowers order by userCreated asc";
+                                $results = $conn->query($query);
                                 ?>
-                                <?php while ($row = $results->fetch_row()) :?>
-                                <tr>
-                                    <td><?php echo $row[0]; ?></td>
-                                    <td><?php echo $row[1]; ?></td>
-                                    <td><?php echo $row[2] .' '. $row[3] .' '. $row[4];?> </td>
-                                    <td><?php echo $row[5]; ?></td>
-                                    <td><?php echo $row[8];?></td>
-                                    <td><?php echo $row[9];?></td>
-                                    <td><?php echo $row[11];?></td>
-                                    <td><?php echo $row[10];?></td>
-                                    <td>
-                                        <button class="btn btn-info btn-xs" data-toggle="modal" value=<?php echo $row[1]; ?> data-target="#view_user"><i class="fa fa-eye"></i></button>
-                                        <a href="borrower_update.php?page=borrower_list&account_number=<?php echo $row[1];?>" class="btn btn-primary btn-xs my-1"><i class="fa fa-edit"></i></a>
-                                        <a href="../../code.php?deleteborrower_id=<?php echo $row[0]; ?>" onclick="return confirm('Are you sure you want to delete this user? This action cannot be undone.');" class="btn btn-danger btn-xs"><i class="fa-solid fa-trash-can"></i></a>
-                                    </td>
-                                </tr>
-                                <?php endwhile; ?>  
+                                <?php while ($row = $results->fetch_row()) : ?>
+                                    <tr>
+                                        <td><?php echo $row[0]; ?></td>
+                                        <td><?php echo $row[1]; ?></td>
+                                        <td><?php echo $row[2] . ' ' . $row[3] . ' ' . $row[4]; ?> </td>
+                                        <td><?php echo $row[5]; ?></td>
+                                        <td><?php echo $row[8]; ?></td>
+                                        <td><?php echo $row[9]; ?></td>
+                                        <td><?php echo $row[11]; ?></td>
+                                        <td><?php echo $row[10]; ?></td>
+                                        <td>
+                                            <button class="btn btn-info btn-xs" data-toggle="modal" value=<?php echo $row[1]; ?> data-target="#view_user"><i class="fa fa-eye"></i></button>
+                                            <a href="borrower_update.php?page=borrower_list&account_number=<?php echo $row[1]; ?>" class="btn btn-primary btn-xs my-1"><i class="fa fa-edit"></i></a>
+                                            <a onclick="deleteborrower()" class="btn btn-danger btn-xs"><i class="fa-solid fa-trash-can"></i></a>
+                                        </td>
+                                    </tr>
+                                    <script>
+                                        function deleteborrower() {
+                                            Swal.fire({
+                                                title: 'Delete <?php echo $row[2]; ?> from database?',
+                                                text: "You won't be able to revert this!",
+                                                icon: 'warning',
+                                                showCancelButton: true,
+                                                confirmButtonColor: '#3085d6',
+                                                cancelButtonColor: '#d33',
+                                                confirmButtonText: 'Delete this user'
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    Swal.fire(
+                                                        'Deleting ...',
+                                                        window.location.href="../../code.php?deleteborrower_id=<?php echo $row[0]; ?>"
+                                                    )
+                                                }
+                                            })
+                                        }
+                                    </script>
+                                <?php endwhile; ?>
                             </tbody>
                         </table>
                     </div><!-- /.card-body -->

@@ -1,8 +1,8 @@
 <?php
-	if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
-	header('location: http://localhost/loan-management/application/pages/error-pages/403-error.php');
-	exit();
-	};
+if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
+    header('location: http://localhost/loan-management/application/pages/error-pages/403-error.php');
+    exit();
+};
 ?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -66,7 +66,7 @@
                         <div class="card-footer">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button class="btn btn-primary offset-md-3" type="submit" name="addplan_btn" value="submit"> Save</button>
+                                    <button class="btn btn-primary offset-md-3" type="submit" name="addplan_btn" value="submit">Save</button>
                                     <input type="button" class="btn btn-secondary" value="Cancel" onclick="history.go(0)" />
                                 </div>
                             </div>
@@ -92,7 +92,7 @@
                                 $results = $conn->query($query);
                                 ?>
                                 <?php while ($row = $results->fetch_row()) : ?>
-                                    
+
                                     <tr>
                                         <td class="text-center align-middle"><?php echo $row[0]; ?></td>
                                         <td class="">
@@ -102,9 +102,29 @@
                                         </td>
                                         <td class="text-center align-middle">
                                             <button class="btn btn-sm btn-primary my-1 edit_plan" type="button"><i class="fa-solid fa-pen-to-square"></i></button>
-                                            <a href="../../code.php?deleteplan_id=<?php echo $row[0]; ?>" onclick="return confirm('Delete this Plan?');" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash-can"></i></a>
+                                            <a role="button" class="btn btn-danger btn-sm" onclick="deleteplan()"><i class="fa-solid fa-trash-can"></i></a>
                                         </td>
                                     </tr>
+                                    <script>
+                                        function deleteplan() {
+                                            Swal.fire({
+                                                title: 'Are you sure?',
+                                                text: "You won't be able to revert this!",
+                                                icon: 'warning',
+                                                showCancelButton: true,
+                                                confirmButtonColor: '#3085d6',
+                                                cancelButtonColor: '#d33',
+                                                confirmButtonText: 'Yes, delete it!'
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    Swal.fire(
+                                                        'Deleting ...',
+                                                        window.location.href = '../../code.php?deleteplan_id=<?php echo $row[0]; ?>'
+                                                    )
+                                                }
+                                            })
+                                        }
+                                    </script>
                                 <?php endwhile; ?>
                             </tbody>
                         </table>

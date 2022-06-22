@@ -1,7 +1,17 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id'])) {
-    $_SESSION['status'] = "<script>$(function(){toastr.warning('You must login first!')});</script>";
+    $_SESSION['status']="<script>const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 5000
+      })
+  
+      Toast.fire({
+        icon: 'warning',
+        title: 'You must login first!'
+      })</script>";
     header('location: ../../index.php');
 }
 ?>

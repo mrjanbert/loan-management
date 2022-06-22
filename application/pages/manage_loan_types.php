@@ -79,9 +79,29 @@
                                         </td>
                                         <td class="text-center align-middle">
                                             <button class="btn btn-sm btn-primary my-1 edit_plan" type="button"><i class="fa-solid fa-pen-to-square"></i></button>
-                                            <a href="../../code.php?deleteloantype_id=<?php echo $row[0];?>" class="btn btn-sm btn-danger" onclick="return confirm('Confirm delete?');"><i class="fa-solid fa-trash-can"></i></i></a>
+                                            <a class="btn btn-sm btn-danger" onclick="deleteloanplan()"><i class="fa-solid fa-trash-can"></i></i></a>
                                         </td>
                                     </tr>
+                                    <script>
+                                        function deleteloanplan() {
+                                            Swal.fire({
+                                                title: 'Are you sure?',
+                                                text: "You won't be able to revert this!",
+                                                icon: 'warning',
+                                                showCancelButton: true,
+                                                confirmButtonColor: '#3085d6',
+                                                cancelButtonColor: '#d33',
+                                                confirmButtonText: 'Yes, delete it!'
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    Swal.fire(
+                                                        'Deleting ...',
+                                                        window.location.href="../../code.php?deleteloantype_id=<?php echo $row[0];?>" 
+                                                    )
+                                                }
+                                            })
+                                        }
+                                    </script>
                                 <?php endwhile; ?>
                             </tbody>
                         </table>

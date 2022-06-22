@@ -148,11 +148,21 @@ if (isset($_POST['login_btn'])) {
 		$_SESSION['user_id'] = $data['user_id'];
 		$_SESSION['accountNumber'] = $data['accountNumber'];
 		$_SESSION['email'] = $email;
-        $_SESSION["status"] = "<div class=\"preloader flex-column justify-content-center align-items-center\">
+        $_SESSION['status'] = "<div class=\"preloader flex-column justify-content-center align-items-center\">
         <img class=\"animation__wobble\" src=\"../../assets/img/logo.png\" height=\"200\" width=\"200\"></div>";
 		header('location: application/pages/home.php?page=dashboard&accountNumber='.$_SESSION['accountNumber']);
 	} else {
-        $_SESSION["status"] = "<script>$(function(){toastr.error('Invalid username or password! Please try again.')});</script>";
+        $_SESSION['status']="<script>const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 5000
+          })
+      
+          Toast.fire({
+            icon: 'error',
+            title: 'Invalid username or password! Please try again.'
+          })</script>";
         header('location: index.php');
     }
 }
@@ -181,6 +191,8 @@ if (isset($_POST['login_borrower_btn'])) {
     }
 }
 
+
+// Add Loan Plan
 if (isset($_POST['addplan_btn'])) {
     $term = $_POST['plan_term'];
     $interest = $_POST['interest_percentage'];
@@ -194,12 +206,17 @@ if (isset($_POST['addplan_btn'])) {
         ";
     $results = $conn->query($query);    
     if ($conn->affected_rows > 0) :
+        $_SESSION['status']="<script>Swal.fire({
+            icon: 'success',
+            title: 'Plan Added',
+            showConfirmButton: false,
+            timer: 2000
+          })</script>";
         header('location: application/pages/home.php?page=manage_loan_plans&accountNumber='.$_SESSION['accountNumber']);
     else :
         header('location: application/pages/home.php?page=manage_loan_plans&accountNumber='.$_SESSION['accountNumber']);
     endif;
 }
-
 
 if (isset($_POST['addloantype_btn'])) {
     $typeofLoan = $_POST['typeofLoan'];
@@ -212,6 +229,12 @@ if (isset($_POST['addloantype_btn'])) {
         ";
     $results = $conn->query($query);    
     if ($conn->affected_rows > 0) :
+        $_SESSION['status']="<script>Swal.fire({
+            icon: 'success',
+            title: 'Loan Type Added',
+            showConfirmButton: false,
+            timer: 2000
+          })</script>";
         header('location: application/pages/home.php?page=manage_loan_types&accountNumber='.$_SESSION['accountNumber']);
     else :
         header('location: application/pages/home.php?page=manage_loan_types&accountNumber='.$_SESSION['accountNumber']);
@@ -229,9 +252,20 @@ if (isset($_POST['addcharges_btn'])) {
         ";
     $results = $conn->query($query);    
     if ($conn->affected_rows > 0) :
+        $_SESSION['status']="<script>Swal.fire({
+            icon: 'success',
+            title: 'Charge Added',
+            showConfirmButton: false,
+            timer: 2000
+          })</script>";
         header('location: application/pages/home.php?page=manage_charges_list&accountNumber='.$_SESSION['accountNumber']);
-        exit();
     else :
+        $_SESSION['status']="<script>Swal.fire({
+            icon: 'error',
+            title: 'Charge Not Added',
+            showConfirmButton: false,
+            timer: 2000
+          })</script>";
         header('location: application/pages/home.php?page=manage_charges_list&accountNumber='.$_SESSION['accountNumber']);
     endif;
 }
@@ -337,7 +371,12 @@ if (isset($_POST['save_module'])) {
         if (!$insert) {
             echo "<script>alert('Record not inserted.....Please try again later!'); </script>";
         } else {
-            echo "<script>alert('Permission Added Successfully!!'); </script>";
+            $_SESSION['status']="<script>Swal.fire({
+                icon: 'success',
+                title: 'User's Permission Inserted',
+                showConfirmButton: false,
+                timer: 2000
+              })</script>";
             header('location: application/pages/home.php?page=user_permission_list&accountNumber='.$_SESSION['accountNumber']);
         }
     }
@@ -345,7 +384,6 @@ if (isset($_POST['save_module'])) {
 
 // Edit Permission
 if (isset($_POST['edit_permission'])) {
-    $accountNumber = $_GET['accountNumber'];
     $selector = $_POST['selector'];
     $i = 0;
     foreach ($selector as $s) {
@@ -358,17 +396,35 @@ if (isset($_POST['edit_permission'])) {
         $update = mysqli_query($conn, "UPDATE module_permission SET mod_create = '$mod_create', mod_read = '$mod_read', mod_update ='$mod_update', mod_delete ='$mod_delete' WHERE mod_id ='$s'");
         $i++;
 
-        if (!$update) {
-            echo "<script>alert('Record not update.....Please try again later!'); </script>";
-        } else {
+        if (mysqli_affected_rows($conn) > 0) :
+            $_SESSION['status']="<script>Swal.fire({
+                icon: 'success',
+                title: 'User's Permission Updated',
+                showConfirmButton: false,
+                timer: 2000
+            })</script>";
             header('location: application/pages/home.php?page=user_permission_list&accountNumber='.$_SESSION['accountNumber']);
-        }
+        else :
+            $_SESSION['status']="<script>Swal.fire({
+                icon: 'error',
+                title: 'Record not updated! Please try again.',
+                showConfirmButton: false,
+                timer: 2000
+            })</script>";
+            header('location: application/pages/home.php?page=user_permission_list&accountNumber='.$_SESSION['accountNumber']);
+        endif;
     }
 }
 // Delete borrower
 if (isset($_GET['deleteborrower_id'])) {
     $deleteborrower_id = $_GET['deleteborrower_id'];
     $result = mysqli_query($conn, "DELETE FROM tbl_borrowers WHERE borrower_id ='$deleteborrower_id'");
+    $_SESSION['status']="<script>Swal.fire({
+        icon: 'success',
+        title: 'Borrower Deleted',
+        showConfirmButton: false,
+        timer: 2000
+      })</script>";
     header('location: application/pages/home.php?page=borrower_list&accountNumber='.$_SESSION['accountNumber']);
 }
 
@@ -376,6 +432,12 @@ if (isset($_GET['deleteborrower_id'])) {
 if (isset($_GET['deleteuser_id'])) {
     $deleteuser_id = $_GET['deleteuser_id'];
     $result = mysqli_query($conn, "DELETE FROM tbl_users WHERE user_id ='$deleteuser_id'");
+    $_SESSION['status']="<script>Swal.fire({
+        icon: 'success',
+        title: 'User Deleted',
+        showConfirmButton: false,
+        timer: 2000
+      })</script>";
     header('location: application/pages/home.php?page=user_list&accountNumber='.$_SESSION['accountNumber']);
 }
 
@@ -383,6 +445,12 @@ if (isset($_GET['deleteuser_id'])) {
 if (isset($_GET['permission_id'])) {
     $accountNumber = $_GET['permission_id'];
     $result = mysqli_query($conn, "DELETE FROM module_permission WHERE accountNumber ='$accountNumber'");
+    $_SESSION['status']="<script>Swal.fire({
+        icon: 'success',
+        title: 'User's Permission  Deleted',
+        showConfirmButton: false,
+        timer: 2000
+      })</script>";
     header('location: application/pages/home.php?page=user_permission_list&accountNumber='.$_SESSION['accountNumber']);
 }
 
@@ -390,6 +458,12 @@ if (isset($_GET['permission_id'])) {
 if(isset($_GET['deletecharges_id'])){
     $charges_id = $_GET['deletecharges_id'];
     $result = mysqli_query($conn, "DELETE FROM tbl_charges WHERE charges_id='$charges_id'");
+    $_SESSION['status']="<script>Swal.fire({
+        icon: 'success',
+        title: 'Charge Deleted',
+        showConfirmButton: false,
+        timer: 2000
+      })</script>";
     header('location: application/pages/home.php?page=manage_charges_list&accountNumber='.$_SESSION['accountNumber']);
 }
 
@@ -397,6 +471,12 @@ if(isset($_GET['deletecharges_id'])){
 if(isset($_GET['deleteloantype_id'])){
     $loantype_id = $_GET['deleteloantype_id'];
     $result = mysqli_query($conn, "DELETE FROM loan_types WHERE loantype_id ='$loantype_id'");
+    $_SESSION['status']="<script>Swal.fire({
+        icon: 'success',
+        title: 'Loan Type Deleted',
+        showConfirmButton: false,
+        timer: 2000
+      })</script>";
     header('location: application/pages/home.php?page=manage_loan_types&accountNumber='.$_SESSION['accountNumber']);
 }
 
@@ -404,6 +484,12 @@ if(isset($_GET['deleteloantype_id'])){
 if(isset($_GET['deleteplan_id'])){
     $plan_id = $_GET['deleteplan_id'];
     $result = mysqli_query($conn, "DELETE FROM loan_plans WHERE plan_id ='$plan_id'");
+    $_SESSION['status']="<script>Swal.fire({
+        icon: 'success',
+        title: 'Plan Deleted',
+        showConfirmButton: false,
+        timer: 2000
+      })</script>";
     header('location: application/pages/home.php?page=manage_loan_plans&accountNumber='.$_SESSION['accountNumber']);
 }
 

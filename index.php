@@ -1,6 +1,17 @@
 <?php session_start();?> 
 <?php
   if (isset($_SESSION['user_id'])) {
+    $_SESSION['status']="<script>const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 5000
+      })
+  
+      Toast.fire({
+        icon: 'info',
+        title: 'You are already logged in.'
+      })</script>";
     header('location: application/pages/home.php?page=dashboard&accountNumber='.$_SESSION['accountNumber']);
   }
 ?>
@@ -14,6 +25,7 @@
   <title>Login - NMSC Loan Management</title>
   <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
   <?php include_once('assets/includes/links-header.php');?>
+  <link rel="stylesheet" href="assets/css/themeloader.css">
 </head>
 
 <body class="hold-transition login-page">
